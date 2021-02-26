@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/core": "^10.0.35",
+    "@emotion/react": "^11.1.5",
+    "@emotion/styled": "^11.1.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.31",
     "@fortawesome/free-regular-svg-icons": "^5.15.0",
     "@fortawesome/free-solid-svg-icons": "^5.15.0",
@@ -12,12 +13,16 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "date-fns": "^2.16.1",
+    "lodash": "^4.17.20",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-error-boundary": "^3.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-use": "^17.1.0",
-    "theme-ui": "^0.3.1"
+    "recoil": "^0.1.2",
+    "theme-ui": "^0.3.1",
+    "use-immer": "^0.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -25,7 +30,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "proxy": "lcp --proxyUrl https://www.jefit.com"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,6 +59,8 @@
     "@testing-library/react-hooks": "^5.0.3",
     "babel-loader": "^8.1.0",
     "jest-fetch-mock": "^3.0.3",
+    "local-cors-proxy": "^1.1.0",
+    "localforage": "^1.9.0",
     "react-is": "^16.13.1"
   }
 }

@@ -1,43 +1,33 @@
-import { useState, useEffect } from 'react'
-import { useAsync, useSetState } from 'react-use'
+import { formatDate } from '../utils'
 
-const jefitBaseUrl = 'https://www.jefit.com/members/user-logs/log/'
+const jefitBaseUrl = 'http://localhost:8010'
+const jefitLogsBaseUrl = jefitBaseUrl + '/proxy/members/user-logs/log/'
 
-export default function (username, date) {
-  if (!username) throw new Error('username is required')
-  if (!date) throw new Error('date is required')
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('date is invalid')
-
-  const result = useAsync(async () => {
-    const response = await fetch(`${jefitBaseUrl}?xid=${username}&dd=${date}`)
-    return await response.text()
-  }, [username, date])
-
-  const { loading, error, value } = result
-
-  const [logData, setLogData] = useState(null)
-  const [logError, setLogError] = useState(error)
-
-  useEffect(() => {
-    if (!loading && !error) {
-      const data = parseLogData(value)
-
-      try {
-        setLogData(data)
-      } catch (err) {
-        setLogError(err)
-      }
-    }
-  }, [result])
-
-  return {
-    loading,
-    error: logError,
-    data: logData,
-  }
+async function fetchLogData(params) {
+  const pageText = await fetchPageHtml(params)
+  const logData = parseHtml(pageText)
+  return logData
 }
 
-function parseLogData(value) {
+async function fetchPageHtml({ username, date }) {
+  if (!username) throw new Error('username is required')
+  if (!date) throw new Error('date is required')
+
+  let dateString = ''
+  if (typeof date === 'string') {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('date is invalid')
+    dateString = date
+  } else {
+    dateString = formatDate(date, 'yyyy-MM-dd')
+  }
+
+  const response = await fetch(
+    `${jefitLogsBaseUrl}?xid=${username}&dd=${dateString}`
+  )
+  return await response.text()
+}
+
+function parseHtml(value) {
   const data = {
     sessionInfo: {},
     logs: [],
@@ -123,10 +113,15 @@ function parseSets(parentElement) {
     let set = {}
     if (text.includes('Lap/Rep')) {
       text = text.split(':')[1].trim()
-      set.rep = parseInt(text)
+      set.reps = parseInt(text)
       sets.push(set)
     } else if (/^\d\d:\d\d:\d\d$/.test(text)) {
       sets[sets.length - 1].interval = text
+    } else {
+      const weightAndReps = text.split(':')[1].split('x')
+      set.weight = parseInt(weightAndReps[0])
+      set.reps = parseInt(weightAndReps[1])
+      sets.push(set)
     }
   }
 
@@ -134,7 +129,8 @@ function parseSets(parentElement) {
 }
 
 function getImageUrl(imgSrc) {
-  return 'https://www.jefit.com' + imgSrc.substr(8)
+  // TODO: Check is URL doesn't hostname and add it
+  return imgSrc
 }
 
 function camelize(str) {
@@ -144,3 +140,5 @@ function camelize(str) {
     })
     .replace(/\s+/g, '')
 }
+
+export { fetchLogData }

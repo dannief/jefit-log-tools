@@ -1212,30 +1212,49 @@ beforeEach(() => {
   fetch.mockResponse(html)
 })
 
-test('should use logs', async () => {
+test('should return value for string date', async () => {
   const { result, waitForValueToChange } = renderHook(() =>
     useLog('test-user', '2020-07-24')
   )
 
   await waitForValueToChange(() => result.current)
 
-  expect(result.current.data).toEqual(expect.anything())
+  expect(result.current.value).toEqual(expect.anything())
 })
 
-test('should throw username required error', () => {
-  const { result } = renderHook(() => useLog())
+test('should return value for object date', async () => {
+  const date = new Date()
+  const { result, waitForValueToChange } = renderHook(() =>
+    useLog('test-user', date)
+  )
 
-  expect(result.error).toEqual(Error('username is required'))
+  await waitForValueToChange(() => result.current)
+
+  expect(result.current.value).toEqual(expect.anything())
 })
 
-test('should throw date required error', () => {
-  const { result } = renderHook(() => useLog('test-user'))
+test('should throw username required error', async () => {
+  const { result, waitForValueToChange } = renderHook(() => useLog())
 
-  expect(result.error).toEqual(Error('date is required'))
+  await waitForValueToChange(() => result.current)
+
+  expect(result.current.error).toEqual(Error('username is required'))
 })
 
-test('should throw invalid date error', () => {
-  const { result } = renderHook(() => useLog('test-user', '200-01-01'))
+test('should throw date required error', async () => {
+  const { result, waitForValueToChange } = renderHook(() => useLog('test-user'))
 
-  expect(result.error).toEqual(Error('date is invalid'))
+  await waitForValueToChange(() => result.current)
+
+  expect(result.current.error).toEqual(Error('date is required'))
+})
+
+test('should throw invalid date error', async () => {
+  const { result, waitForValueToChange } = renderHook(() =>
+    useLog('test-user', '200-01-01')
+  )
+
+  await waitForValueToChange(() => result.current)
+
+  expect(result.current.error).toEqual(Error('date is invalid'))
 })
