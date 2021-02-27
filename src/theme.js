@@ -41,13 +41,10 @@ const theme = {
   },
   space: ['0rem', '0.25rem', '0.5rem', '1rem', '1.5rem', '3rem'],
   fonts: {
-    body:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+    body: 'Raleway, sans-serif',
     heading: 'inherit',
-    monospace:
-      'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-    sans:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+    monospace: '"Source Code Pro", monospace',
+    sans: 'Raleway, sans-serif',
   },
   fontSizes: [
     '0.75rem',

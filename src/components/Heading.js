@@ -7,7 +7,7 @@ export default function ({ name }) {
     <Box>
       <Text
         sx={{
-          fontSize: 6,
+          fontSize: 5,
           fontWeight: 'bold',
           mb: 4,
         }}
