@@ -24,19 +24,23 @@ const fetchLogEffect = param => ({ setSelf }) => {
 }
 
 const localForageEffect = key => ({ setSelf, onSet }) => {
-  setSelf(
-    localForage
-      .getItem(key)
-      .then(savedValue =>
-        savedValue != null ? JSON.parse(savedValue) : new DefaultValue()
-      )
-  )
+  const setSelfFromLocalStorage = () => {
+    setSelf(
+      localForage
+        .getItem(key)
+        .then(savedValue =>
+          savedValue != null ? savedValue : new DefaultValue()
+        )
+    )
+  }
+
+  setSelfFromLocalStorage()
 
   onSet(newValue => {
     if (newValue instanceof DefaultValue) {
-      localStorage.removeItem(key)
+      localForage.removeItem(key)
     } else {
-      localStorage.setItem(key, JSON.stringify(newValue))
+      localForage.setItem(key, newValue)
     }
   })
 }

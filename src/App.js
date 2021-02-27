@@ -3,36 +3,35 @@ import { RecoilRoot } from 'recoil'
 import { jsx, ThemeProvider } from '@emotion/react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import theme from './theme'
 import Start from './pages/Start'
 import Log from './pages/Log'
 import Layout from './components/Layout'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
+// import RecoilizeDebugger from 'recoilize'
 
 library.add(fas, far)
 
 function App() {
   return (
     <RecoilRoot>
+      {/* <RecoilizeDebugger /> */}
       <Router>
-        <ThemeProvider theme={theme}>
-          <Layout>
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Suspense fallback={<h1>Loading log data...</h1>}>
-                <Switch>
-                  <Route exact path='/'>
-                    <Start />
-                  </Route>
-                  <Route exact path='/log/:date'>
-                    <Log />
-                  </Route>
-                </Switch>
-              </Suspense>
-            </ErrorBoundary>
-          </Layout>
-        </ThemeProvider>
+        <Layout>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Suspense fallback={<h1>Loading log data...</h1>}>
+              <Switch>
+                <Route exact path='/'>
+                  <Start />
+                </Route>
+                <Route exact path='/log/:date'>
+                  <Log />
+                </Route>
+              </Switch>
+            </Suspense>
+          </ErrorBoundary>
+        </Layout>
       </Router>
     </RecoilRoot>
   )

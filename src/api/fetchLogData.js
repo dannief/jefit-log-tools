@@ -36,6 +36,8 @@ function parseHtml(value) {
 
   const htmlDoc = new DOMParser().parseFromString(value, 'text/html')
 
+  // TODO: Support multiple sessions on page
+
   // Session Info
   const sessioninfoNode = htmlDoc.querySelectorAll(
     '#workout-summary .workout-session > div > div > div'
@@ -118,10 +120,12 @@ function parseSets(parentElement) {
     } else if (/^\d\d:\d\d:\d\d$/.test(text)) {
       sets[sets.length - 1].interval = text
     } else {
-      const weightAndReps = text.split(':')[1].split('x')
-      set.weight = parseInt(weightAndReps[0])
-      set.reps = parseInt(weightAndReps[1])
-      sets.push(set)
+      try {
+        const weightAndReps = text.split(':')[1].split('x')
+        set.weight = parseInt(weightAndReps[0])
+        set.reps = parseInt(weightAndReps[1])
+        sets.push(set)
+      } catch {}
     }
   }
 
@@ -129,7 +133,7 @@ function parseSets(parentElement) {
 }
 
 function getImageUrl(imgSrc) {
-  // TODO: Check is URL doesn't hostname and add it
+  // TODO: Check if URL doesn't have hostname and add it
   return imgSrc
 }
 
