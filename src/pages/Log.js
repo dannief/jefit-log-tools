@@ -2,7 +2,6 @@
 /** @jsxFrag React.Fragment */
 import { jsx, Box } from 'theme-ui'
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { logQuery } from '../state'
 import Json from 'react-json-view'
@@ -10,8 +9,6 @@ import Exercise from '../components/Exercise'
 
 export default function Log() {
   const log = useRecoilValue(logQuery())
-
-  console.log('log:', log)
 
   return (
     <>

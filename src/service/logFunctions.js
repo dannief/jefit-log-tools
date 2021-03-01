@@ -37,7 +37,6 @@ const overloadType = {
 }
 
 function getVolume(sets) {
-  console.log('sets', sets)
   return sets.reduce((prevValue, currValue) => {
     return prevValue + (currValue.weight ?? 0) * currValue.reps
   }, 0)

@@ -2,8 +2,7 @@
 /** @jsxFrag React.Fragment */
 import { jsx, Box, Input, Button } from 'theme-ui'
 import React, { useCallback, useState, useEffect } from 'react'
-import { useRecoilState } from 'recoil'
-import { generatePath } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
 import {
   currentUsername as currentUsernameState,
   currentDate as currentDateState,
@@ -12,18 +11,13 @@ import Heading from '../components/Heading'
 import history from '../utils/history'
 
 export default function Log() {
-  // TODO: Add to container component
-  const [currentUsername, setCurrentUsername] = useRecoilState(
-    currentUsernameState
-  )
-  const [currentDate, setCurrentDate] = useRecoilState(currentDateState)
+  const currentUsername = useRecoilValue(currentUsernameState)
+  const currentDate = useRecoilValue(currentDateState)
 
   const [username, setUsername] = useState(currentUsername)
   const [date, setDate] = useState(currentDate)
 
   const redirectToLogPage = useCallback(() => {
-    // setCurrentUsername(username)
-    // setCurrentDate(date)
     history.push(`/log?username=${username}&date=${date}`)
   }, [date, username])
 

@@ -17,7 +17,6 @@ import history from '../utils/history'
 
 const locationSyncEffect = key => ({ setSelf }) => {
   const setSelfFromLocation = location => {
-    console.log('location', location)
     const params = queryString.parse(location.search)
     if (params[key]) {
       setSelf(params[key])
@@ -36,12 +35,10 @@ const locationSyncEffect = key => ({ setSelf }) => {
 const fetchLogEffect = param => ({ setSelf }) => {
   const fetchLog = async () => {
     const response = await fetchLogData(param)
-    console.log('response', response)
     return response
   }
 
   if (param && param.username && param.date) {
-    console.log('fetching')
     setSelf(fetchLog())
   }
 }
