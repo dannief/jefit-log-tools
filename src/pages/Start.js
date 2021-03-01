@@ -1,6 +1,6 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
-import { jsx, Box, Input, Button } from 'theme-ui'
+import { jsx, Box, Input, Button, Label } from 'theme-ui'
 import React, { useCallback, useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import {
@@ -22,17 +22,21 @@ export default function Log() {
   }, [date, username])
 
   return (
-    <>
+    <Box as='form'>
       <Heading name='Jefit Workout Logs' />
       <Box sx={{ mb: 3 }}>
+        <Label htmlFor='username'>Username</Label>
         <Input
+          name='username'
           type='text'
           value={username}
           onChange={e => setUsername(e.target.value)}
         />
       </Box>
       <Box sx={{ mb: 3 }}>
+        <Label htmlFor='date'>Workout Date</Label>
         <Input
+          name='date'
           type='date'
           value={date}
           onChange={e => setDate(e.target.value)}
@@ -42,6 +46,6 @@ export default function Log() {
       <Box>
         <Button onClick={redirectToLogPage}>View Log</Button>
       </Box>
-    </>
+    </Box>
   )
 }

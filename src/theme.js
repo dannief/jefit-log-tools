@@ -204,6 +204,18 @@ const theme = {
       height: 'auto',
     },
   },
+  alerts: {
+    error: {
+      color: 'background',
+      bg: 'danger',
+    },
+  },
+  buttons: {
+    muted: {
+      color: 'gray.5',
+      bg: 'muted',
+    },
+  },
 }
 
 export default theme
