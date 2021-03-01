@@ -5,20 +5,43 @@ import {
   selector,
   DefaultValue,
 } from 'recoil'
-import subDays from 'date-fns/subDays'
-import { fetchLogData } from '../api/fetchLogData'
-import { formatDate } from '../utils'
 import localForage from 'localforage'
+import queryString from 'query-string'
+
+import { fetchLogData } from '../api/fetchLogData'
+import { getVolume } from '../service/logFunctions'
+import { lastWeek } from '../utils/dateUtils'
+import history from '../utils/history'
 
 // ----- Effects -----
+
+const locationSyncEffect = key => ({ setSelf }) => {
+  const setSelfFromLocation = location => {
+    console.log('location', location)
+    const params = queryString.parse(location.search)
+    if (params[key]) {
+      setSelf(params[key])
+    }
+  }
+
+  let unlisten = history.listen(location => {
+    setSelfFromLocation(location)
+  })
+
+  setSelfFromLocation(history.location)
+
+  return unlisten
+}
 
 const fetchLogEffect = param => ({ setSelf }) => {
   const fetchLog = async () => {
     const response = await fetchLogData(param)
+    console.log('response', response)
     return response
   }
 
   if (param && param.username && param.date) {
+    console.log('fetching')
     setSelf(fetchLog())
   }
 }
@@ -47,51 +70,43 @@ const localForageEffect = key => ({ setSelf, onSet }) => {
 
 // ----- Atoms -----
 
-const currentUsernameState = atom({
+// TODO: Default value from route on load
+const currentUsername = atom({
   key: 'CurrentUsername',
-  effects_UNSTABLE: [localForageEffect('username')],
+  effects_UNSTABLE: [
+    localForageEffect('username'),
+    locationSyncEffect('username'),
+  ],
 })
 
-const currentDateState = atom({
+const currentDate = atom({
   key: 'CurrentDate',
-  default: formatDate(subDays(new Date(), 7)),
-})
-
-// Cached log data i.e contains im memory mapping of logs by username and date
-// TODO:  Save session or local storage to survive browser refreshes and closing respectively
-const logsState = atomFamily({
-  key: 'Logs',
-  default: null,
-  effects_UNSTABLE: param => [fetchLogEffect(param)],
+  default: lastWeek(),
+  effects_UNSTABLE: [locationSyncEffect('date')],
 })
 
 // ----- Selectors -----
 
-const logForCurrentUserAndDateState = selector({
-  key: 'LogForCurrentUserAndDate',
-  get: ({ get }) => {
-    return get(
-      logsState({
-        username: get(currentUsernameState),
-        date: get(currentDateState),
-      })
+const logQuery = selectorFamily({
+  key: 'LogQuery',
+  get: param => async ({ get }) => {
+    const username =
+      !param || !param.username ? get(currentUsername) : param.username
+    const date = !param || !param.date ? get(currentDate) : param.date
+
+    const response = await fetchLogData({ username, date })
+    return response
+  },
+})
+
+const exerciseVolume = selectorFamily({
+  key: 'ExerciseVolume',
+  get: param => ({ get }) => {
+    const log = get(logQuery(param))
+    return getVolume(
+      log.exercises.find(ex => ex.exerciseName === param.exerciseName).sets
     )
   },
 })
 
-const logForCurrentUserState = selectorFamily({
-  key: 'LogQueryForCurrentUser',
-  get: date => async ({ get }) => {
-    const username = get(currentUsernameState)
-    const log = await get(logsState({ username, date }))
-    return log
-  },
-})
-
-export {
-  currentUsernameState,
-  currentDateState,
-  logForCurrentUserAndDateState,
-  logForCurrentUserState,
-  logsState,
-}
+export { currentUsername, currentDate, logQuery, exerciseVolume }

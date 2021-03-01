@@ -3,25 +3,28 @@
 import { jsx, Box, Input, Button } from 'theme-ui'
 import React, { useCallback, useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { useHistory, generatePath } from 'react-router-dom'
-import { currentUsernameState } from '../state'
+import { generatePath } from 'react-router-dom'
+import {
+  currentUsername as currentUsernameState,
+  currentDate as currentDateState,
+} from '../state'
 import Heading from '../components/Heading'
-import subDays from 'date-fns/subDays'
-import { formatDate } from '../utils'
+import history from '../utils/history'
 
 export default function Log() {
   // TODO: Add to container component
   const [currentUsername, setCurrentUsername] = useRecoilState(
     currentUsernameState
   )
-  const [username, setUsername] = useState(currentUsername)
-  const [date, setDate] = useState(formatDate(subDays(new Date(), 7)))
+  const [currentDate, setCurrentDate] = useRecoilState(currentDateState)
 
-  let history = useHistory()
+  const [username, setUsername] = useState(currentUsername)
+  const [date, setDate] = useState(currentDate)
 
   const redirectToLogPage = useCallback(() => {
-    setCurrentUsername(username)
-    history.push(generatePath('/log/:date', { date: date }))
+    // setCurrentUsername(username)
+    // setCurrentDate(date)
+    history.push(`/log?username=${username}&date=${date}`)
   }, [date, username])
 
   return (

@@ -12,7 +12,7 @@ import maxBy from 'lodash/maxBy'
     exercisesDone,
     weightLifted
   },
-  logs: [{
+  exercises: [{
     exerciseImage, 
     exerciseName, 
     oneRepMax, 
@@ -37,8 +37,9 @@ const overloadType = {
 }
 
 function getVolume(sets) {
+  console.log('sets', sets)
   return sets.reduce((prevValue, currValue) => {
-    return prevValue + currValue.weight * currValue.reps
+    return prevValue + (currValue.weight ?? 0) * currValue.reps
   }, 0)
 }
 
@@ -48,10 +49,10 @@ function getVolume(sets) {
 function getOverloadOptions(
   sets,
   increaseVolumeBy = 100,
-  addPercentage = false
+  asPercentage = false
 ) {
   const volume = getVolume(sets)
-  const newVolume = addPercentage
+  const newVolume = asPercentage
     ? volume * (1 + increaseVolumeBy / 100)
     : (volume += increaseVolumeBy)
 
@@ -91,7 +92,7 @@ function getOverloadOptions(
 
 function getSetsFromOverloadOption(overloadOption) {
   const sets = []
-  for (let i = 0; 1 < overloadOption.sets; 1++) {
+  for (let i = 0; i < overloadOption.sets; i++) {
     sets.push({
       weight: overloadOption.weight,
       reps: overloadOption.reps,
@@ -100,3 +101,5 @@ function getSetsFromOverloadOption(overloadOption) {
 
   return sets
 }
+
+export { getVolume }

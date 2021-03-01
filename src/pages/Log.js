@@ -4,17 +4,21 @@ import { jsx, Box } from 'theme-ui'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
-import { logForCurrentUserState } from '../state'
+import { logQuery } from '../state'
 import Json from 'react-json-view'
+import Exercise from '../components/Exercise'
 
 export default function Log() {
-  const { date } = useParams()
+  const log = useRecoilValue(logQuery())
 
-  const log = useRecoilValue(logForCurrentUserState(date))
+  console.log('log:', log)
 
   return (
     <>
-      <div>{log ? <Json src={log} /> : 'No workout'}</div>
+      {log.exercises.map(ex => {
+        return <Exercise key={ex.exerciseName} exercise={ex}></Exercise>
+      })}
+      <Box>{log ? <Json src={log} /> : 'No workout'}</Box>
     </>
   )
 }

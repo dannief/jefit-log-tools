@@ -1,4 +1,4 @@
-import { formatDate } from '../utils'
+import { formatDate } from '../utils/dateUtils'
 
 const jefitBaseUrl = 'http://localhost:8010'
 const jefitLogsBaseUrl = jefitBaseUrl + '/proxy/members/user-logs/log/'
@@ -30,7 +30,7 @@ async function fetchPageHtml({ username, date }) {
 function parseHtml(value) {
   const data = {
     sessionInfo: {},
-    logs: [],
+    exercises: [],
     notes: {},
   }
 
@@ -61,7 +61,7 @@ function parseHtml(value) {
   const logNodes = htmlDoc.querySelectorAll(logEntrySelector)
   for (let i = 0; i < logNodes.length; i++) {
     let logEntry = { notes: [] }
-    data.logs[i] = logEntry
+    data.exercises[i] = logEntry
 
     const logEntryEl = logNodes[i]
     const entryNodes = logEntryEl.querySelectorAll(logEntrySelector + ' > div')
@@ -89,7 +89,7 @@ function parseHtml(value) {
     const note = tdEl.childNodes[3].textContent.trim()
 
     if (exercise) {
-      const log = data.logs.find(log => log.exerciseName === exercise)
+      const log = data.exercises.find(log => log.exerciseName === exercise)
       log.notes.push(note)
     }
 

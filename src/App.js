@@ -2,22 +2,21 @@ import React, { Suspense } from 'react'
 import { RecoilRoot } from 'recoil'
 import { jsx, ThemeProvider } from '@emotion/react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import Start from './pages/Start'
 import Log from './pages/Log'
+import history from './utils/history'
 import Layout from './components/Layout'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
-// import RecoilizeDebugger from 'recoilize'
 
 library.add(fas, far)
 
 function App() {
   return (
     <RecoilRoot>
-      {/* <RecoilizeDebugger /> */}
-      <Router>
+      <Router history={history}>
         <Layout>
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Suspense fallback={<h1>Loading log data...</h1>}>
@@ -25,7 +24,7 @@ function App() {
                 <Route exact path='/'>
                   <Start />
                 </Route>
-                <Route exact path='/log/:date'>
+                <Route path='/log'>
                   <Log />
                 </Route>
               </Switch>
