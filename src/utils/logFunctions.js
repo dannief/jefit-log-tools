@@ -45,16 +45,8 @@ function getVolume(sets) {
 // TODO: Implement getOverloadOptions options:
 //  1. Use min, avg, max value for non-changing parameter?
 //  2. When increase set, should keep reps or weight constant; how much to increase sets by?
-function getOverloadOptions(
-  sets,
-  increaseVolumeBy = 100,
-  asPercentage = false
-) {
-  const volume = getVolume(sets)
-  const newVolume = asPercentage
-    ? volume * (1 + increaseVolumeBy / 100)
-    : (volume += increaseVolumeBy)
-
+//  TODO: Round weight to nearest 5lbs
+function getOverloadOptions(sets, newVolume) {
   const avgWeight = meanBy(sets, 'weight')
   const avgReps = meanBy(sets, 'reps')
   const numSets = sets.length
@@ -101,4 +93,4 @@ function getSetsFromOverloadOption(overloadOption) {
   return sets
 }
 
-export { getVolume }
+export { getVolume, getOverloadOptions, overloadType }

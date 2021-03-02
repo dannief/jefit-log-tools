@@ -9,7 +9,7 @@ import localForage from 'localforage'
 import queryString from 'query-string'
 
 import { fetchLogData } from '../api/fetchLogData'
-import { getVolume } from '../service/logFunctions'
+import { getVolume } from '../utils/logFunctions'
 import { lastWeek } from '../utils/dateUtils'
 import history from '../utils/history'
 
