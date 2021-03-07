@@ -1,0 +1,160 @@
+/** @jsx jsx */
+import React, { useState, useEffect, useMemo } from 'react'
+import { useImmer } from 'use-immer'
+import { jsx, Flex, Box, Text, Label, Input, Button } from 'theme-ui'
+import { getOverloadOptVolume } from '../utils/logFunctions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+export default function ExerciseVolumeEditor({ overloadOpt }) {
+  const originalVolume = useMemo(() => getOverloadOptVolume(overloadOpt), [
+    overloadOpt,
+  ])
+
+  const [opt, updateOpt] = useImmer(overloadOpt)
+  const [percentage, setPercentage] = useState(100)
+  const [volume, setVolume] = useState(null)
+  const [volumeDiff, setVolumeDiff] = useState(0)
+
+  useEffect(() => {
+    setVolume(getOverloadOptVolume(opt))
+  }, [opt])
+
+  useEffect(() => {
+    setPercentage(Math.round((volume / originalVolume) * 100))
+    setVolumeDiff(volume - originalVolume)
+  }, [volume])
+
+  const handleChange = property => e => {
+    const value = e.target.value
+    updateOpt(d => {
+      d[property] = value
+    })
+  }
+
+  const handleReset = e => {
+    e.preventDefault()
+    updateOpt(d => overloadOpt)
+  }
+
+  return (
+    <Box>
+      <Flex sx={{ flexDirection: 'column', mb: '30px' }}>
+        <Text sx={{ color: 'gray.5', mb: 2 }}>
+          Change parameters for desired volume
+        </Text>
+        <Flex as='form'>
+          <Box sx={{ mr: 2 }}>
+            <Label
+              sx={{ fontSize: 1, justifyContent: 'flex-end' }}
+              htmlFor='lbs'
+            >
+              lbs
+            </Label>
+            <Input
+              name='lbs'
+              sx={{
+                width: '70px',
+                textAlign: 'right',
+                fontFamily: 'body',
+                fontSize: 3,
+                pt: 0,
+                pb: 0,
+              }}
+              type='number'
+              step={5}
+              min={0}
+              value={opt.weight}
+              onChange={handleChange('weight')}
+            ></Input>
+          </Box>
+          <Box sx={{ mr: 2 }}>
+            <Label
+              sx={{ fontSize: 1, justifyContent: 'flex-end' }}
+              htmlFor='reps'
+            >
+              reps
+            </Label>
+            <Input
+              name='reps'
+              sx={{
+                width: '55px',
+                textAlign: 'right',
+                fontFamily: 'body',
+                fontSize: 3,
+                pt: 0,
+                pb: 0,
+              }}
+              type='number'
+              step={1}
+              min={0}
+              value={opt.reps}
+              onChange={handleChange('reps')}
+            ></Input>
+          </Box>
+          <Box sx={{ mr: 2 }}>
+            <Label
+              sx={{ fontSize: 1, justifyContent: 'flex-end' }}
+              htmlFor='sets'
+            >
+              sets
+            </Label>
+            <Input
+              name='sets'
+              sx={{
+                width: '45px',
+                textAlign: 'right',
+                fontFamily: 'body',
+                fontSize: 3,
+                pt: 0,
+                pb: 0,
+              }}
+              type='number'
+              step={1}
+              min={0}
+              value={opt.sets}
+              onChange={handleChange('sets')}
+            ></Input>
+          </Box>
+          <Box
+            sx={{
+              pt: 3,
+              mr: 1,
+              fontSize: 4,
+              fontWeight: 'bold',
+              alignSelf: 'flex-end',
+            }}
+          >
+            {'='}
+          </Box>
+          <Box sx={{ mr: 2 }}>
+            <Text>Volume</Text>
+            <Text>{volume} lbs</Text>
+          </Box>
+        </Flex>
+        <Flex sx={{ mt: 1, alignItems: 'center' }}>
+          {percentage != 100 ? (
+            <Box>
+              <FontAwesomeIcon
+                sx={{ color: percentage > 100 ? 'blue' : 'red' }}
+                icon={percentage > 100 ? 'arrow-up' : 'arrow-down'}
+              />{' '}
+              {percentage} %
+            </Box>
+          ) : null}
+          {volumeDiff != 0 ? (
+            <Box sx={{ ml: 4 }}>
+              <FontAwesomeIcon
+                sx={{ color: volumeDiff > 0 ? 'blue' : 'red' }}
+                icon={volumeDiff > 0 ? 'plus' : 'minus'}
+              />{' '}
+              {Math.abs(volumeDiff)} lbs
+            </Box>
+          ) : null}
+          <Box sx={{ ml: 'auto' }}>
+            <Button onClick={handleReset}>Reset</Button>
+          </Box>
+        </Flex>
+      </Flex>
+    </Box>
+  )
+}

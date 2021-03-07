@@ -36,16 +36,23 @@ const overloadType = {
   setsAndWeight: 'SETS_AND_WEIGHT',
 }
 
-function getVolume(sets) {
+function getExerciseVolume(sets) {
   return sets.reduce((prevValue, currValue) => {
     return prevValue + (currValue.weight ?? 0) * currValue.reps
   }, 0)
 }
 
+function getOverloadOptVolume(opt) {
+  return opt.weight * opt.reps * opt.sets
+}
+
+function round5(number) {
+  return Math.ceil(number / 5) * 5
+}
+
 // TODO: Implement getOverloadOptions options:
 //  1. Use min, avg, max value for non-changing parameter?
 //  2. When increase set, should keep reps or weight constant; how much to increase sets by?
-//  TODO: Round weight to nearest 5lbs
 function getOverloadOptions(sets, newVolume) {
   const avgWeight = meanBy(sets, 'weight')
   const avgReps = meanBy(sets, 'reps')
@@ -53,7 +60,7 @@ function getOverloadOptions(sets, newVolume) {
 
   const overloadInfo = [
     {
-      weight: Math.ceil(newVolume / avgReps / numSets),
+      weight: round5(newVolume / avgReps / numSets),
       reps: avgReps,
       sets: numSets,
       type: overloadType.weight,
@@ -71,7 +78,7 @@ function getOverloadOptions(sets, newVolume) {
       type: overloadType.setsAndReps,
     },
     {
-      weight: Math.ceil(newVolume / avgReps / (numSets + 1)), // change weight, add 1 set, keep average reps
+      weight: round5(newVolume / avgReps / (numSets + 1)), // change weight, add 1 set, keep average reps
       reps: avgReps,
       sets: numSets + 1,
       type: overloadType.setsAndWeight,
@@ -93,4 +100,9 @@ function getSetsFromOverloadOption(overloadOption) {
   return sets
 }
 
-export { getVolume, getOverloadOptions, overloadType }
+export {
+  getExerciseVolume,
+  getOverloadOptVolume,
+  getOverloadOptions,
+  overloadType,
+}

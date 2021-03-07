@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Flex, Box, Text, Label, Input, Button } from 'theme-ui'
-import { getOverloadOptions, overloadType } from '../utils/logFunctions'
+import {
+  getOverloadOptions,
+  overloadType,
+  getOverloadOptVolume,
+} from '../utils/logFunctions'
 
 export default function ExerciseOverload({ exercise, exerciseVolume }) {
   const [volume, setVolume] = useState(exerciseVolume)
@@ -22,7 +26,7 @@ export default function ExerciseOverload({ exercise, exerciseVolume }) {
 
   return (
     <Box>
-      <Flex sx={{ flexDirection: 'column', mb: 4 }}>
+      <Flex sx={{ flexDirection: 'column', mb: '30px' }}>
         <Text sx={{ color: 'gray.5', mb: 2 }}>
           Generate suggest workout from new volume
         </Text>
@@ -97,11 +101,28 @@ export default function ExerciseOverload({ exercise, exerciseVolume }) {
         overloadOptions.map(opt => {
           return (
             <Flex sx={{ flexDirection: 'row', mb: 2 }}>
-              <Box sx={{ width: '70px', mr: 2 }}>{opt.weight + 'lbs'}</Box>
+              <Box sx={{ width: '50px', mr: 2, textAlign: 'right' }}>
+                {opt.weight + 'lbs'}
+              </Box>
               <Box>x</Box>
-              <Box sx={{ mr: 2, ml: 2, width: '80px' }}>{opt.reps} reps</Box>
+              <Box sx={{ mr: 2, ml: 2, width: '60px', textAlign: 'center' }}>
+                {opt.reps} reps
+              </Box>
               <Box>x</Box>
-              <Box sx={{ ml: 2, width: '80px' }}>{opt.sets} sets</Box>
+              <Box sx={{ ml: 2, width: '60px', textAlign: 'left' }}>
+                {opt.sets} sets
+              </Box>
+              <Box>{'='}</Box>
+              <Box
+                sx={{
+                  ml: 2,
+                  width: '75px',
+                  textAlign: 'right',
+                  fontWeight: 'heading',
+                }}
+              >
+                {getOverloadOptVolume(opt)} lbs
+              </Box>
             </Flex>
           )
         })}

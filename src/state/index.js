@@ -9,7 +9,7 @@ import localForage from 'localforage'
 import queryString from 'query-string'
 
 import { fetchLogData } from '../api/fetchLogData'
-import { getVolume } from '../utils/logFunctions'
+import { getExerciseVolume } from '../utils/logFunctions'
 import { lastWeek } from '../utils/dateUtils'
 import history from '../utils/history'
 
@@ -67,7 +67,6 @@ const localForageEffect = key => ({ setSelf, onSet }) => {
 
 // ----- Atoms -----
 
-// TODO: Default value from route on load
 const currentUsername = atom({
   key: 'CurrentUsername',
   effects_UNSTABLE: [
@@ -100,7 +99,7 @@ const exerciseVolume = selectorFamily({
   key: 'ExerciseVolume',
   get: param => ({ get }) => {
     const log = get(logQuery(param))
-    return getVolume(
+    return getExerciseVolume(
       log.exercises.find(ex => ex.exerciseName === param.exerciseName).sets
     )
   },

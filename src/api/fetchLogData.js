@@ -36,7 +36,7 @@ function parseHtml(value) {
 
   const htmlDoc = new DOMParser().parseFromString(value, 'text/html')
 
-  // TODO: Support multiple sessions on page
+  // TODO: Support parsing multiple sessions displayed on Jefit page
 
   // Session Info
   const sessioninfoNode = htmlDoc.querySelectorAll(
