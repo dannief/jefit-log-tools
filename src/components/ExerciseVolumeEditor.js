@@ -11,16 +11,20 @@ export default function ExerciseVolumeEditor({ overloadOpt }) {
   ])
 
   const [opt, updateOpt] = useImmer(overloadOpt)
-  const [percentage, setPercentage] = useState(100)
+  // const [percentage, setPercentage] = useState(100)
   const [volume, setVolume] = useState(null)
   const [volumeDiff, setVolumeDiff] = useState(0)
+  const [percentageDiff, setPercentageDiff] = useState(0)
+
+  // TODO: Fix diff calculations
 
   useEffect(() => {
     setVolume(getOverloadOptVolume(opt))
   }, [opt])
 
   useEffect(() => {
-    setPercentage(Math.round((volume / originalVolume) * 100))
+    const perc = Math.round((volume / originalVolume) * 100)
+    setPercentageDiff(perc - 100)
     setVolumeDiff(volume - originalVolume)
   }, [volume])
 
@@ -132,13 +136,13 @@ export default function ExerciseVolumeEditor({ overloadOpt }) {
           </Box>
         </Flex>
         <Flex sx={{ mt: 1, alignItems: 'center' }}>
-          {percentage != 100 ? (
+          {percentageDiff != 0 ? (
             <Box>
               <FontAwesomeIcon
-                sx={{ color: percentage > 100 ? 'blue' : 'red' }}
-                icon={percentage > 100 ? 'arrow-up' : 'arrow-down'}
+                sx={{ color: percentageDiff > 0 ? 'blue' : 'red' }}
+                icon={percentageDiff > 0 ? 'arrow-up' : 'arrow-down'}
               />{' '}
-              {percentage} %
+              {Math.abs(percentageDiff)} %
             </Box>
           ) : null}
           {volumeDiff != 0 ? (
@@ -151,7 +155,11 @@ export default function ExerciseVolumeEditor({ overloadOpt }) {
             </Box>
           ) : null}
           <Box sx={{ ml: 'auto' }}>
-            <Button onClick={handleReset}>Reset</Button>
+            {percentageDiff != 0 ? (
+              <Button variant='secondary' onClick={handleReset}>
+                Reset
+              </Button>
+            ) : null}
           </Box>
         </Flex>
       </Flex>

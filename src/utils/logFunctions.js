@@ -50,13 +50,23 @@ function round5(number) {
   return Math.ceil(number / 5) * 5
 }
 
+function getExerciseSummary(sets) {
+  return {
+    weight: Math.round(meanBy(sets, 'weight')),
+    reps: Math.round(meanBy(sets, 'reps')),
+    sets: sets.length,
+  }
+}
+
 // TODO: Implement getOverloadOptions options:
 //  1. Use min, avg, max value for non-changing parameter?
 //  2. When increase set, should keep reps or weight constant; how much to increase sets by?
 function getOverloadOptions(sets, newVolume) {
-  const avgWeight = meanBy(sets, 'weight')
-  const avgReps = meanBy(sets, 'reps')
-  const numSets = sets.length
+  const {
+    weight: avgWeight,
+    reps: avgReps,
+    sets: numSets,
+  } = getExerciseSummary(sets)
 
   const overloadInfo = [
     {
@@ -102,6 +112,7 @@ function getSetsFromOverloadOption(overloadOption) {
 
 export {
   getExerciseVolume,
+  getExerciseSummary,
   getOverloadOptVolume,
   getOverloadOptions,
   overloadType,

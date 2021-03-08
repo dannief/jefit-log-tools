@@ -10,6 +10,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 
 import Start from './pages/Start'
 import Log from './pages/Log'
+import Overload from './pages/Overload'
 import history from './utils/history'
 import Layout from './components/Layout'
 import ErrorFallback from './components/ErrorFallback'
@@ -30,6 +31,9 @@ function App() {
                 </Route>
                 <Route path='/log'>
                   <Log />
+                </Route>
+                <Route path='/overload'>
+                  <Overload />
                 </Route>
               </Switch>
             </Suspense>

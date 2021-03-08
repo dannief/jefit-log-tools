@@ -32,17 +32,6 @@ const locationSyncEffect = key => ({ setSelf }) => {
   return unlisten
 }
 
-const fetchLogEffect = param => ({ setSelf }) => {
-  const fetchLog = async () => {
-    const response = await fetchLogData(param)
-    return response
-  }
-
-  if (param && param.username && param.date) {
-    setSelf(fetchLog())
-  }
-}
-
 const localForageEffect = key => ({ setSelf, onSet }) => {
   const setSelfFromLocalStorage = () => {
     setSelf(
@@ -78,7 +67,15 @@ const currentUsername = atom({
 const currentDate = atom({
   key: 'CurrentDate',
   default: lastWeek(),
-  effects_UNSTABLE: [locationSyncEffect('date')],
+  effects_UNSTABLE: [localForageEffect('date'), locationSyncEffect('date')],
+})
+
+const currentExerciseName = atom({
+  key: 'CurrentExerciseName',
+  effects_UNSTABLE: [
+    localForageEffect('exercise'),
+    locationSyncEffect('exercise'),
+  ],
 })
 
 // ----- Selectors -----
@@ -99,10 +96,17 @@ const exerciseVolume = selectorFamily({
   key: 'ExerciseVolume',
   get: param => ({ get }) => {
     const log = get(logQuery(param))
-    return getExerciseVolume(
+    const volume = getExerciseVolume(
       log.exercises.find(ex => ex.exerciseName === param.exerciseName).sets
     )
+    return volume
   },
 })
 
-export { currentUsername, currentDate, logQuery, exerciseVolume }
+export {
+  currentUsername,
+  currentDate,
+  currentExerciseName,
+  logQuery,
+  exerciseVolume,
+}

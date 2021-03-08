@@ -42,7 +42,7 @@ const theme = {
   space: ['0rem', '0.25rem', '0.5rem', '1rem', '1.5rem', '3rem'],
   fonts: {
     body: 'Raleway, sans-serif',
-    heading: 'inherit',
+    heading: 'Raleway, sans-serif',
     monospace: '"Source Code Pro", monospace',
     sans: 'Raleway, sans-serif',
   },

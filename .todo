@@ -1,6 +1,7 @@
 ✔ Validate date format in useLog hook parameter @done(21-02-08 20:22)
 ✔ Create state for logs, current date and current username @done(21-03-03 22:15)
 ✔ Calculate sets, reps and weight for new volume @done(21-03-03 22:15)
+☐ Add notes to log page
 ☐ Add option to add routine day info to log
   ☐ show exercises not done with last exercise log and rest time. 
   ☐ Show message saying e.g. '3 exercises from routine not done'

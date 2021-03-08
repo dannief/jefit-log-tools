@@ -1,5 +1,7 @@
+/** @jsx jsx */
+import { truncate } from 'lodash'
 import React, { useState, useEffect, useMemo } from 'react'
-import { Flex, Box, Text, Label, Input, Button } from 'theme-ui'
+import { jsx, Flex, Box, Text, Label, Input, Button } from 'theme-ui'
 import {
   getOverloadOptions,
   overloadType,
@@ -7,28 +9,62 @@ import {
 } from '../utils/logFunctions'
 
 export default function ExerciseOverload({ exercise, exerciseVolume }) {
-  const [volume, setVolume] = useState(exerciseVolume)
+  const [volume, setVolume] = useState(null)
   const [volumePercent, setVolumePercent] = useState(100)
   const [overloadOptions, setOverloadOptions] = useState(null)
+  const [showOverload, setShowOverload] = useState(false)
+
+  useEffect(() => {
+    setVolume(exerciseVolume)
+  }, [exerciseVolume])
 
   useEffect(() => {
     setVolumePercent(Math.round((volume / exerciseVolume) * 100))
     setOverloadOptions(getOverloadOptions(exercise.sets, volume))
-  }, [volume])
+  }, [volume, exercise, exerciseVolume])
 
   const handleResetClick = e => {
     e.preventDefault()
     setVolume(exerciseVolume)
     setVolumePercent(100)
+    setShowOverload(false)
   }
 
-  // TODOL Toggle between volume and volume percent being editable
+  const handleVolumeChange = e => {
+    setVolume(e.target.value)
+    setShowOverload(true)
+  }
+
+  function getStyleForOverloadType(opt, param) {
+    let fontWeight = 'normal'
+    let color = 'body'
+
+    const weight =
+      param === 'weight' &&
+      (opt.type === overloadType.weight ||
+        opt.type === overloadType.setsAndWeight)
+    const reps =
+      param === 'reps' &&
+      (opt.type === overloadType.reps || opt.type === overloadType.setsAndReps)
+    const sets =
+      param === 'sets' &&
+      (opt.type === overloadType.sets ||
+        opt.type === overloadType.setsAndReps ||
+        opt.type === overloadType.setsAndWeight)
+
+    if (weight || reps || sets) {
+      fontWeight = 'bold'
+      color = 'primary'
+    }
+
+    return { fontWeight, color }
+  }
 
   return (
     <Box>
-      <Flex sx={{ flexDirection: 'column', mb: '30px' }}>
+      <Flex sx={{ flexDirection: 'column', mb: 3 }}>
         <Text sx={{ color: 'gray.5', mb: 2 }}>
-          Generate suggest workout from new volume
+          Generate suggested workout from new volume
         </Text>
         <Flex as='form'>
           <Box sx={{ mr: 2 }}>
@@ -45,12 +81,14 @@ export default function ExerciseOverload({ exercise, exerciseVolume }) {
                 textAlign: 'right',
                 fontFamily: 'body',
                 fontSize: 4,
+                pt: 0,
+                pb: 0,
               }}
               type='number'
               step={10}
               min={0}
               value={volume}
-              onChange={e => setVolume(e.target.value)}
+              onChange={handleVolumeChange}
             ></Input>
           </Box>
           <Flex
@@ -66,16 +104,6 @@ export default function ExerciseOverload({ exercise, exerciseVolume }) {
             >
               Volume %
             </Label>
-            {/* <Input
-            name='volumePercent'
-            sx={{ width: '100px' }}
-            type='number'
-            step={1}
-            min={1}
-            value={volumePercent}
-            onChange={e => setVolumePercent(e.target.value)}
-            disabled
-          ></Input> */}
             <Text
               sx={{
                 width: '100px',
@@ -91,13 +119,73 @@ export default function ExerciseOverload({ exercise, exerciseVolume }) {
               {volumePercent}
             </Text>
           </Flex>
-          <Button sx={{ alignSelf: 'flex-end' }} onClick={handleResetClick}>
+          <Button
+            variant='secondary'
+            sx={{ alignSelf: 'flex-end', ml: 'auto' }}
+            onClick={handleResetClick}
+          >
             Reset
           </Button>
         </Flex>
       </Flex>
+      {showOverload ? (
+        <table sx={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <th sx={{ borderBottom: '1px solid gray', textAlign: 'right' }}>
+                lbs
+              </th>
+              <th sx={{ borderBottom: '1px solid gray', textAlign: 'right' }}>
+                Reps
+              </th>
+              <th sx={{ borderBottom: '1px solid gray', textAlign: 'right' }}>
+                Sets
+              </th>
+              <th sx={{ borderBottom: '1px solid gray', textAlign: 'right' }}>
+                Volume
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {overloadOptions &&
+              overloadOptions.map(opt => {
+                return (
+                  <tr key={opt.type}>
+                    <td
+                      sx={{
+                        textAlign: 'right',
+                        ...getStyleForOverloadType(opt, 'weight'),
+                      }}
+                    >
+                      {opt.weight}
+                    </td>
+                    <td
+                      sx={{
+                        textAlign: 'right',
+                        ...getStyleForOverloadType(opt, 'reps'),
+                      }}
+                    >
+                      {opt.reps}
+                    </td>
+                    <td
+                      sx={{
+                        textAlign: 'right',
+                        ...getStyleForOverloadType(opt, 'sets'),
+                      }}
+                    >
+                      {opt.sets}
+                    </td>
+                    <td sx={{ textAlign: 'right' }}>
+                      {getOverloadOptVolume(opt)}
+                    </td>
+                  </tr>
+                )
+              })}
+          </tbody>
+        </table>
+      ) : null}
 
-      {overloadOptions &&
+      {/*overloadOptions &&
         overloadOptions.map(opt => {
           return (
             <Flex sx={{ flexDirection: 'row', mb: 2 }}>
@@ -125,7 +213,7 @@ export default function ExerciseOverload({ exercise, exerciseVolume }) {
               </Box>
             </Flex>
           )
-        })}
+        })*/}
     </Box>
   )
 }

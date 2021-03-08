@@ -33,6 +33,17 @@ export default function Log() {
           onChange={e => setUsername(e.target.value)}
         />
       </Box>
+      <Box sx={{ mb: 4 }}>
+        <Button
+          as='a'
+          href={
+            'https://www.jefit.com/members/user-workout-routine/?xid=' +
+            currentUsername
+          }
+        >
+          View Routine
+        </Button>
+      </Box>
       <Box sx={{ mb: 3 }}>
         <Label htmlFor='date'>Workout Date</Label>
         <Input

@@ -1,11 +1,11 @@
 import { formatDate } from '../utils/dateUtils'
 
-const jefitBaseUrl = 'http://localhost:8010'
-const jefitLogsBaseUrl = jefitBaseUrl + '/proxy/members/user-logs/log/'
+const jefitBaseUrl = 'http://localhost:8010/proxy/'
+const jefitLogsBaseUrl = jefitBaseUrl + 'members/user-logs/log/'
 
 async function fetchLogData(params) {
   const pageText = await fetchPageHtml(params)
-  const logData = parseHtml(pageText)
+  const logData = parseHtml(pageText, params)
   return logData
 }
 
@@ -27,7 +27,7 @@ async function fetchPageHtml({ username, date }) {
   return await response.text()
 }
 
-function parseHtml(value) {
+function parseHtml(value, { username }) {
   const data = {
     sessionInfo: {},
     exercises: [],
@@ -68,6 +68,10 @@ function parseHtml(value) {
 
     logEntry.exerciseImage = getImageUrl(entryNodes[0].children[0].src)
     logEntry.exerciseName = entryNodes[1].children[0].innerHTML.trim()
+    logEntry.exerciseHistoryUrl =
+      entryNodes[1].children[0].href.replace('my-jefit', 'members') +
+      '&xid=' +
+      username
     const oneRepmax = parseFloat(entryNodes[2].innerHTML)
     logEntry.oneRepMax = !Number.isNaN(oneRepmax) ? oneRepmax : null
     logEntry.sets = parseSets(entryNodes[3])

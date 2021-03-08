@@ -21,7 +21,7 @@ export default function Set({ number, weight, reps, interval, compact }) {
   return (
     <Flex sx={{ flexDirection: 'column', ...containerSx(compact) }}>
       <Flex sx={{ flexDirection: 'row' }}>
-        <Box sx={{ ...setItemSx(compact), width: '30px' }}>{number}.</Box>
+        <Box sx={{ ...setItemSx(compact), width: '20px' }}>{number}.</Box>
         <Box sx={{ ...setItemSx(compact), width: '70px' }}>
           {weight > 0 && weight + 'lbs'}
         </Box>
