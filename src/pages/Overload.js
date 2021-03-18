@@ -7,7 +7,6 @@ import ExerciseOverload from '../components/ExerciseOverload'
 import ExerciseVolumeEditor from '../components/ExerciseVolumeEditor'
 import {
   logQuery,
-  exerciseVolume,
   currentExerciseName as currentExerciseNameState,
 } from '../state'
 import { getExerciseSummary } from '../utils/logFunctions'
@@ -15,9 +14,6 @@ import { getExerciseSummary } from '../utils/logFunctions'
 export default function Overload() {
   const log = useRecoilValue(logQuery())
   const currentExerciseName = useRecoilValue(currentExerciseNameState)
-  const currentExerciseVolume = useRecoilValue(
-    exerciseVolume({ exerciseName: currentExerciseName })
-  )
 
   const [currentExercise, setCurrentExercise] = useState(
     getCurrentExercise(currentExerciseName)
@@ -42,10 +38,7 @@ export default function Overload() {
   return (
     <Flex sx={{ flexDirection: 'column' }}>
       <Heading name='Overload Calculator' />
-      <ExerciseCompact
-        exercise={currentExercise}
-        exerciseVolume={currentExerciseVolume}
-      />
+      <ExerciseCompact exercise={currentExercise} />
       <Flex sx={{ mb: 1 }}>
         <Button
           variant={tab !== 'suggest' ? 'primary' : 'muted'}
@@ -63,13 +56,13 @@ export default function Overload() {
       </Flex>
       <Box sx={{ bg: 'gray.1', p: 2, borderRadius: 4 }}>
         {tab === 'suggest' ? (
-          <ExerciseOverload
-            exercise={currentExercise}
-            exerciseVolume={currentExerciseVolume}
-          />
+          <ExerciseOverload exercise={currentExercise} />
         ) : null}
         {tab === 'calculate' ? (
-          <ExerciseVolumeEditor overloadOpt={exerciseSummary} />
+          <ExerciseVolumeEditor
+            overloadOpt={exerciseSummary}
+            exerciseVolume={currentExercise.volume}
+          />
         ) : null}
       </Box>
     </Flex>

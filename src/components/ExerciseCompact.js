@@ -3,7 +3,7 @@ import { Flex, Box, Text } from 'theme-ui'
 import Set from './Set'
 import Measurement from './Measurement'
 
-export default function ExerciseCompact({ exercise, exerciseVolume }) {
+export default function ExerciseCompact({ exercise }) {
   return (
     <Flex sx={{ flexDirection: 'column', mb: 3 }}>
       <Box sx={{ mb: 2 }}>
@@ -33,7 +33,7 @@ export default function ExerciseCompact({ exercise, exerciseVolume }) {
         </Box>
         <Box sx={{ flex: '1 0 auto', ml: 4 }}>
           <Box sx={{ mb: 4, bg: 'muted', p: 3, display: 'inline-block' }}>
-            <Measurement title='Volume' value={exerciseVolume + ' lbs'} />
+            <Measurement title='Volume' value={exercise.volume + ' lbs'} />
           </Box>
         </Box>
       </Flex>

@@ -5,28 +5,22 @@ import { jsx, Flex, Box, Text, Label, Input, Button } from 'theme-ui'
 import { getOverloadOptVolume } from '../utils/logFunctions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export default function ExerciseVolumeEditor({ overloadOpt }) {
-  const originalVolume = useMemo(() => getOverloadOptVolume(overloadOpt), [
-    overloadOpt,
-  ])
-
+export default function ExerciseVolumeEditor({ overloadOpt, exerciseVolume }) {
   const [opt, updateOpt] = useImmer(overloadOpt)
   // const [percentage, setPercentage] = useState(100)
   const [volume, setVolume] = useState(null)
   const [volumeDiff, setVolumeDiff] = useState(0)
   const [percentageDiff, setPercentageDiff] = useState(0)
 
-  // TODO: Fix diff calculations
-
   useEffect(() => {
     setVolume(getOverloadOptVolume(opt))
   }, [opt])
 
   useEffect(() => {
-    const perc = Math.round((volume / originalVolume) * 100)
+    const perc = Math.round((volume / exerciseVolume) * 100)
     setPercentageDiff(perc - 100)
-    setVolumeDiff(volume - originalVolume)
-  }, [volume])
+    setVolumeDiff(volume - exerciseVolume)
+  }, [volume, exerciseVolume])
 
   const handleChange = property => e => {
     const value = e.target.value
@@ -136,7 +130,7 @@ export default function ExerciseVolumeEditor({ overloadOpt }) {
           </Box>
         </Flex>
         <Flex sx={{ mt: 1, alignItems: 'center' }}>
-          {percentageDiff != 0 ? (
+          {percentageDiff !== 0 ? (
             <Box>
               <FontAwesomeIcon
                 sx={{ color: percentageDiff > 0 ? 'blue' : 'red' }}
@@ -145,7 +139,7 @@ export default function ExerciseVolumeEditor({ overloadOpt }) {
               {Math.abs(percentageDiff)} %
             </Box>
           ) : null}
-          {volumeDiff != 0 ? (
+          {volumeDiff !== 0 ? (
             <Box sx={{ ml: 4 }}>
               <FontAwesomeIcon
                 sx={{ color: volumeDiff > 0 ? 'blue' : 'red' }}
@@ -155,7 +149,7 @@ export default function ExerciseVolumeEditor({ overloadOpt }) {
             </Box>
           ) : null}
           <Box sx={{ ml: 'auto' }}>
-            {percentageDiff != 0 ? (
+            {percentageDiff !== 0 ? (
               <Button variant='secondary' onClick={handleReset}>
                 Reset
               </Button>

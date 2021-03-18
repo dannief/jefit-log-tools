@@ -8,30 +8,46 @@ import {
   getOverloadOptVolume,
 } from '../utils/logFunctions'
 
-export default function ExerciseOverload({ exercise, exerciseVolume }) {
+export default function ExerciseOverload({ exercise }) {
   const [volume, setVolume] = useState(null)
   const [volumePercent, setVolumePercent] = useState(100)
   const [overloadOptions, setOverloadOptions] = useState(null)
   const [showOverload, setShowOverload] = useState(false)
+  const [isVolumeAmountMode, setIsVolumeAmountMode] = useState(true)
 
   useEffect(() => {
-    setVolume(exerciseVolume)
-  }, [exerciseVolume])
+    setVolume(exercise.volume)
+  }, [exercise])
 
   useEffect(() => {
-    setVolumePercent(Math.round((volume / exerciseVolume) * 100))
-    setOverloadOptions(getOverloadOptions(exercise.sets, volume))
-  }, [volume, exercise, exerciseVolume])
+    if (isVolumeAmountMode) {
+      setVolumePercent(Math.round((volume / exercise.volume) * 100))
+      setOverloadOptions(getOverloadOptions(exercise.sets, volume))
+    }
+  }, [volume, exercise, exercise.volume, isVolumeAmountMode])
+
+  useEffect(() => {
+    if (!isVolumeAmountMode) {
+      const vol = Math.round((volumePercent / 100) * exercise.volume)
+      setVolume(vol)
+      setOverloadOptions(getOverloadOptions(exercise.sets, vol))
+    }
+  }, [volumePercent, exercise, exercise.volume, isVolumeAmountMode])
 
   const handleResetClick = e => {
     e.preventDefault()
-    setVolume(exerciseVolume)
+    setVolume(exercise.volume)
     setVolumePercent(100)
     setShowOverload(false)
   }
 
   const handleVolumeChange = e => {
     setVolume(e.target.value)
+    setShowOverload(true)
+  }
+
+  const handleVolumePercentChange = e => {
+    setVolumePercent(e.target.value)
     setShowOverload(true)
   }
 
@@ -64,7 +80,7 @@ export default function ExerciseOverload({ exercise, exerciseVolume }) {
     <Box>
       <Flex sx={{ flexDirection: 'column', mb: 3 }}>
         <Text sx={{ color: 'gray.5', mb: 2 }}>
-          Generate suggested workout from new volume
+          Change volume to generate suggested workout
         </Text>
         <Flex as='form'>
           <Box sx={{ mr: 2 }}>
@@ -74,22 +90,40 @@ export default function ExerciseOverload({ exercise, exerciseVolume }) {
             >
               Volume
             </Label>
-            <Input
-              name='volume'
-              sx={{
-                width: '100px',
-                textAlign: 'right',
-                fontFamily: 'body',
-                fontSize: 4,
-                pt: 0,
-                pb: 0,
-              }}
-              type='number'
-              step={10}
-              min={0}
-              value={volume}
-              onChange={handleVolumeChange}
-            ></Input>
+            {isVolumeAmountMode ? (
+              <Input
+                name='volume'
+                sx={{
+                  width: '100px',
+                  textAlign: 'right',
+                  fontFamily: 'body',
+                  fontSize: 4,
+                  pt: 0,
+                  pb: 0,
+                }}
+                type='number'
+                step={10}
+                min={0}
+                value={volume}
+                onChange={handleVolumeChange}
+              ></Input>
+            ) : (
+              <Text
+                sx={{
+                  width: '100px',
+                  fontWeight: 'heading',
+                  textAlign: 'right',
+                  fontFamily: 'body',
+                  fontSize: 4,
+                  pr: 2,
+                  pb: 2,
+                }}
+                name='volume'
+                onClick={() => setIsVolumeAmountMode(true)}
+              >
+                <div>{volume}</div>
+              </Text>
+            )}
           </Box>
           <Flex
             sx={{
@@ -104,20 +138,40 @@ export default function ExerciseOverload({ exercise, exerciseVolume }) {
             >
               Volume %
             </Label>
-            <Text
-              sx={{
-                width: '100px',
-                fontWeight: 'heading',
-                textAlign: 'right',
-                fontFamily: 'body',
-                fontSize: 4,
-                pr: 2,
-                pb: 2,
-              }}
-              name='volumePercent'
-            >
-              {volumePercent}
-            </Text>
+            {isVolumeAmountMode ? (
+              <Text
+                sx={{
+                  width: '100px',
+                  fontWeight: 'heading',
+                  textAlign: 'right',
+                  fontFamily: 'body',
+                  fontSize: 4,
+                  pr: 2,
+                  pb: 2,
+                }}
+                name='volumePercent'
+                onClick={() => setIsVolumeAmountMode(false)}
+              >
+                {volumePercent}
+              </Text>
+            ) : (
+              <Input
+                name='volumePercent'
+                sx={{
+                  width: '100px',
+                  textAlign: 'right',
+                  fontFamily: 'body',
+                  fontSize: 4,
+                  pt: 0,
+                  pb: 0,
+                }}
+                type='number'
+                step={10}
+                min={0}
+                value={volumePercent}
+                onChange={handleVolumePercentChange}
+              ></Input>
+            )}
           </Flex>
           <Button
             variant='secondary'

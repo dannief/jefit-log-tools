@@ -1,21 +1,10 @@
 import React from 'react'
 import { Flex, Box, Text } from 'theme-ui'
-import { useRecoilValue } from 'recoil'
 import { Link } from 'react-router-dom'
 import Set from './Set'
 import Measurement from './Measurement'
-import { exerciseVolume as exerciseVolumeState } from '../state'
-import { faBox } from '@fortawesome/free-solid-svg-icons'
 
-export default function ({ exercise }) {
-  const exerciseVolume = useRecoilValue(
-    exerciseVolumeState({ exerciseName: exercise.exerciseName })
-  )
-
-  return <Exercise exercise={exercise} exerciseVolume={exerciseVolume} />
-}
-
-export function Exercise({ exercise, exerciseVolume }) {
+export default function Exercise({ exercise }) {
   return (
     <Flex sx={{ flexDirection: 'column', mb: 3 }}>
       <Box sx={{ mb: 2 }}>
@@ -44,12 +33,12 @@ export function Exercise({ exercise, exerciseVolume }) {
         </Box>
         <Box sx={{ flex: '1 0 auto', ml: 4 }}>
           <Box sx={{ mb: 2 }}>
-            <Measurement title='Volume' value={exerciseVolume + ' lbs'} />
+            <Measurement title='Volume' value={exercise.volume + ' lbs'} />
           </Box>
           <Box sx={{ mb: 2 }}>
             <Measurement title='1RM' value={exercise.oneRepMax} />
           </Box>
-          {exerciseVolume > 0 ? (
+          {exercise.volume > 0 ? (
             <Box>
               <Link to={'/overload?exercise=' + exercise.exerciseName}>
                 Overload

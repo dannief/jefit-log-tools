@@ -16,4 +16,5 @@ Default.args = {
     reps: 12,
     sets: 3,
   },
+  exerciseVolume: 3000,
 }

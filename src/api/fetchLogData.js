@@ -1,4 +1,5 @@
 import { formatDate } from '../utils/dateUtils'
+import { getExerciseVolume } from '../utils/logFunctions'
 
 const jefitBaseUrl = 'http://localhost:8010/proxy/'
 const jefitLogsBaseUrl = jefitBaseUrl + 'members/user-logs/log/'
@@ -69,12 +70,17 @@ function parseHtml(value, { username }) {
     logEntry.exerciseImage = getImageUrl(entryNodes[0].children[0].src)
     logEntry.exerciseName = entryNodes[1].children[0].innerHTML.trim()
     logEntry.exerciseHistoryUrl =
-      entryNodes[1].children[0].href.replace('my-jefit', 'members') +
+      entryNodes[1].children[0].href
+        .replace('my-jefit', 'members')
+        .replace('https://www.jefit.com/', '') +
       '&xid=' +
       username
     const oneRepmax = parseFloat(entryNodes[2].innerHTML)
     logEntry.oneRepMax = !Number.isNaN(oneRepmax) ? oneRepmax : null
     logEntry.sets = parseSets(entryNodes[3])
+    logEntry.volume = getExerciseVolume(logEntry.sets)
+
+    console.log(logEntry)
   }
 
   // Notes
@@ -126,7 +132,7 @@ function parseSets(parentElement) {
     } else {
       try {
         const weightAndReps = text.split(':')[1].split('x')
-        set.weight = parseInt(weightAndReps[0])
+        set.weight = parseFloat(weightAndReps[0])
         set.reps = parseInt(weightAndReps[1])
         sets.push(set)
       } catch {}

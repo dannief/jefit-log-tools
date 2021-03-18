@@ -28,6 +28,6 @@ Default.args = {
         reps: 12,
       },
     ],
+    volume: 2880,
   },
-  exerciseVolume: 2880,
 }

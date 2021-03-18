@@ -1,33 +1,4 @@
 import meanBy from 'lodash/meanBy'
-import minBy from 'lodash/minBy'
-import maxBy from 'lodash/maxBy'
-
-/*
-{
-  sessionInfo: {
-    sessionLength,
-    actualWorkout,
-    wastedTime,
-    restTimer,
-    exercisesDone,
-    weightLifted
-  },
-  exercises: [{
-    exerciseImage, 
-    exerciseName, 
-    oneRepMax, 
-    sets: [{
-      weight,
-      reps,
-      interval
-    }],
-    notes: [note: string]
-   }],
-  notes: {
-    [exerciseName: string]: [note: string]
-  },
-}
-*/
 
 const overloadType = {
   weight: 'WEIGHT',
@@ -52,8 +23,8 @@ function round5(number) {
 
 function getExerciseSummary(sets) {
   return {
-    weight: Math.round(meanBy(sets, 'weight')),
-    reps: Math.round(meanBy(sets, 'reps')),
+    weight: round5(meanBy(sets, 'weight')),
+    reps: Math.ceil(meanBy(sets, 'reps')),
     sets: sets.length,
   }
 }
@@ -83,7 +54,7 @@ function getOverloadOptions(sets, newVolume) {
     },
     {
       weight: avgWeight, // keep average weight, add 1 set, change reps
-      reps: Math.ceil(newVolume / avgWeight / (numSets + 1)),
+      reps: Math.floor(newVolume / avgWeight / (numSets + 1)),
       sets: numSets + 1,
       type: overloadType.setsAndReps,
     },

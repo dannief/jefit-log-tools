@@ -1222,17 +1222,6 @@ test('should return value for string date', async () => {
   expect(result.current.value).toEqual(expect.anything())
 })
 
-test('should return value for object date', async () => {
-  const date = new Date()
-  const { result, waitForValueToChange } = renderHook(() =>
-    useLog('test-user', date)
-  )
-
-  await waitForValueToChange(() => result.current)
-
-  expect(result.current.value).toEqual(expect.anything())
-})
-
 test('should throw username required error', async () => {
   const { result, waitForValueToChange } = renderHook(() => useLog())
 

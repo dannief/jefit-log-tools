@@ -1,15 +1,8 @@
-import {
-  atom,
-  atomFamily,
-  selectorFamily,
-  selector,
-  DefaultValue,
-} from 'recoil'
+import { atom, selectorFamily, DefaultValue } from 'recoil'
 import localForage from 'localforage'
 import queryString from 'query-string'
 
 import { fetchLogData } from '../api/fetchLogData'
-import { getExerciseVolume } from '../utils/logFunctions'
 import { lastWeek } from '../utils/dateUtils'
 import history from '../utils/history'
 
@@ -92,21 +85,4 @@ const logQuery = selectorFamily({
   },
 })
 
-const exerciseVolume = selectorFamily({
-  key: 'ExerciseVolume',
-  get: param => ({ get }) => {
-    const log = get(logQuery(param))
-    const volume = getExerciseVolume(
-      log.exercises.find(ex => ex.exerciseName === param.exerciseName).sets
-    )
-    return volume
-  },
-})
-
-export {
-  currentUsername,
-  currentDate,
-  currentExerciseName,
-  logQuery,
-  exerciseVolume,
-}
+export { currentUsername, currentDate, currentExerciseName, logQuery }
