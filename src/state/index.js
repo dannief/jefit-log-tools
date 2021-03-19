@@ -1,8 +1,9 @@
-import { atom, selectorFamily, DefaultValue } from 'recoil'
+import { atom, selector, selectorFamily, DefaultValue } from 'recoil'
 import localForage from 'localforage'
 import queryString from 'query-string'
 
 import { fetchLogData } from '../api/fetchLogData'
+import { fetchExerciseHistoryData } from '../api/fetchExerciseHistory'
 import { lastWeek } from '../utils/dateUtils'
 import history from '../utils/history'
 
@@ -85,4 +86,22 @@ const logQuery = selectorFamily({
   },
 })
 
-export { currentUsername, currentDate, currentExerciseName, logQuery }
+const exerciseHistoryQuery = selector({
+  key: 'ExerciseHistoryQuery',
+  get: async ({ get }) => {
+    const exerciseName = get(currentExerciseName)
+    const log = get(logQuery())
+    const url = log.exercises.find(e => e.exerciseName === exerciseName)
+      .exerciseHistoryUrl
+    const logs = await fetchExerciseHistoryData(url)
+    return { exerciseName, logs }
+  },
+})
+
+export {
+  currentUsername,
+  currentDate,
+  currentExerciseName,
+  logQuery,
+  exerciseHistoryQuery,
+}

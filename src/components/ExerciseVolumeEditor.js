@@ -7,10 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function ExerciseVolumeEditor({ overloadOpt, exerciseVolume }) {
   const [opt, updateOpt] = useImmer(overloadOpt)
-  // const [percentage, setPercentage] = useState(100)
   const [volume, setVolume] = useState(null)
   const [volumeDiff, setVolumeDiff] = useState(0)
-  const [percentageDiff, setPercentageDiff] = useState(0)
+  const [percentage, setPercentage] = useState(100)
 
   useEffect(() => {
     setVolume(getOverloadOptVolume(opt))
@@ -18,7 +17,7 @@ export default function ExerciseVolumeEditor({ overloadOpt, exerciseVolume }) {
 
   useEffect(() => {
     const perc = Math.round((volume / exerciseVolume) * 100)
-    setPercentageDiff(perc - 100)
+    setPercentage(perc)
     setVolumeDiff(volume - exerciseVolume)
   }, [volume, exerciseVolume])
 
@@ -130,13 +129,13 @@ export default function ExerciseVolumeEditor({ overloadOpt, exerciseVolume }) {
           </Box>
         </Flex>
         <Flex sx={{ mt: 1, alignItems: 'center' }}>
-          {percentageDiff !== 0 ? (
+          {percentage !== 100 ? (
             <Box>
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 sx={{ color: percentageDiff > 0 ? 'blue' : 'red' }}
                 icon={percentageDiff > 0 ? 'arrow-up' : 'arrow-down'}
-              />{' '}
-              {Math.abs(percentageDiff)} %
+              />{' '} */}
+              {Math.abs(percentage)} %
             </Box>
           ) : null}
           {volumeDiff !== 0 ? (
@@ -149,7 +148,7 @@ export default function ExerciseVolumeEditor({ overloadOpt, exerciseVolume }) {
             </Box>
           ) : null}
           <Box sx={{ ml: 'auto' }}>
-            {percentageDiff !== 0 ? (
+            {percentage !== 100 ? (
               <Button variant='secondary' onClick={handleReset}>
                 Reset
               </Button>

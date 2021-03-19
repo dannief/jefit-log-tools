@@ -1,10 +1,11 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 import { jsx, Box } from 'theme-ui'
-import React, { useEffect } from 'react'
+// eslint-disable-next-line no-unused-vars
+import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { logQuery } from '../state'
-import Json from 'react-json-view'
+// import Json from 'react-json-view'
 import Exercise from '../components/Exercise'
 
 export default function Log() {
@@ -15,7 +16,7 @@ export default function Log() {
       {log.exercises.map(ex => {
         return <Exercise key={ex.exerciseName} exercise={ex}></Exercise>
       })}
-      <Box>{log ? <Json src={log} /> : 'No workout'}</Box>
+      {/* <Box>{log ? <Json src={log} /> : 'No workout'}</Box> */}
     </>
   )
 }

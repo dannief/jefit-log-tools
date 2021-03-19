@@ -4,19 +4,23 @@ import { Link } from 'react-router-dom'
 import Set from './Set'
 import Measurement from './Measurement'
 
-export default function Exercise({ exercise }) {
+export default function Exercise({ exercise, showExerciseName = true }) {
   return (
     <Flex sx={{ flexDirection: 'column', mb: 3 }}>
-      <Box sx={{ mb: 2 }}>
-        <Text
-          sx={{
-            fontSize: 3,
-            fontWeight: '600',
-          }}
-        >
-          {exercise.exerciseName}
-        </Text>
-      </Box>
+      {showExerciseName ? (
+        <Box sx={{ mb: 2 }}>
+          <Text
+            sx={{
+              fontSize: 3,
+              fontWeight: '600',
+            }}
+          >
+            <Link to={'/history?exercise=' + exercise.exerciseName}>
+              {exercise.exerciseName}
+            </Link>
+          </Text>
+        </Box>
+      ) : null}
       <Flex>
         <Box sx={{ flex: '1 0 auto' }}>
           {exercise.sets.map((set, index) => {
@@ -38,7 +42,7 @@ export default function Exercise({ exercise }) {
           <Box sx={{ mb: 2 }}>
             <Measurement title='1RM' value={exercise.oneRepMax} />
           </Box>
-          {exercise.volume > 0 ? (
+          {exercise.volume > 0 && showExerciseName ? (
             <Box>
               <Link to={'/overload?exercise=' + exercise.exerciseName}>
                 Overload

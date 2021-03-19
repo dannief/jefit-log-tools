@@ -57,6 +57,8 @@ function parseHtml(value) {
     data.push(logItem)
   }
 
+  console.log(data)
+
   return data
 }
 

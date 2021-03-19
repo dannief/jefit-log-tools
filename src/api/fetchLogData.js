@@ -1,7 +1,7 @@
 import { formatDate } from '../utils/dateUtils'
 import { getExerciseVolume } from '../utils/logFunctions'
 
-const jefitBaseUrl = 'http://localhost:8010/proxy/'
+const jefitBaseUrl = 'http://192.168.100.71:8010/proxy/'
 const jefitLogsBaseUrl = jefitBaseUrl + 'members/user-logs/log/'
 
 async function fetchLogData(params) {

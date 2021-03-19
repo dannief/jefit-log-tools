@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Exercise } from './Exercise'
+import Exercise from './Exercise'
 
 export default {
   title: 'Exercise',

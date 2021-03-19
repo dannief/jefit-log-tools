@@ -4,8 +4,11 @@
 ✔ Fix diff volume and percentage calculations in ExerciseVolumeEditor component @done(21-03-16 21:17)
 ✔ Create hook to get exercise history @done(21-03-16 21:18)
 ✔ Toggle between volume % and value editing in ExerciseOverload component @done(21-03-17 22:14)
-☐ Clicking on exercise brings up last 5 logs
+✔ Clicking on exercise brings up last 5 logs @done(21-03-18 19:21)
 ☐ Add notes to log page
+☐ Add site header and display current user and date
+☐ Use CORS service
+☐ Implement PWA
 
 --- Release 2 ---
 ☐ Add option to add routine day info to log
