@@ -3,10 +3,11 @@ import subDays from 'date-fns/subDays'
 import parse from 'date-fns/parse'
 
 const shortDateFormat = 'yyyy-MM-dd'
+const longDateFormat = 'PPPP'
 
 function formatDate(date, type = 'short') {
   if (type === 'short') return format(date, shortDateFormat)
-  if (type === 'long') return format(date, 'PPPP')
+  if (type === 'long') return format(date, longDateFormat)
 
   throw new Error('format type is not supported')
 }
@@ -23,4 +24,11 @@ function formatShortToLongDateString(shortDateString) {
   return formatDate(parseShortDate(shortDateString), 'long')
 }
 
-export { formatDate, lastWeek, formatShortToLongDateString }
+export {
+  formatDate,
+  lastWeek,
+  parseShortDate,
+  formatShortToLongDateString,
+  shortDateFormat,
+  longDateFormat,
+}

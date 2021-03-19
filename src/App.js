@@ -23,26 +23,30 @@ function App() {
   return (
     <RecoilRoot>
       <Router history={history}>
-        <Layout>
-          <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Suspense fallback={<Loading />}>
-              <Switch>
-                <Route exact path='/'>
-                  <Start />
-                </Route>
-                <Route path='/log'>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Suspense fallback={<Loading />}>
+            <Switch>
+              <Route exact path='/'>
+                <Start />
+              </Route>
+              <Route path='/log'>
+                <Layout>
                   <Log />
-                </Route>
-                <Route path='/overload'>
+                </Layout>
+              </Route>
+              <Route path='/overload'>
+                <Layout>
                   <Overload />
-                </Route>
-                <Route path='/history'>
+                </Layout>
+              </Route>
+              <Route path='/history'>
+                <Layout>
                   <History />
-                </Route>
-              </Switch>
-            </Suspense>
-          </ErrorBoundary>
-        </Layout>
+                </Layout>
+              </Route>
+            </Switch>
+          </Suspense>
+        </ErrorBoundary>
       </Router>
     </RecoilRoot>
   )

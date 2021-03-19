@@ -1,6 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 import { jsx, Box, Input, Button, Label } from 'theme-ui'
+// eslint-disable-next-line no-unused-vars
 import React, { useCallback, useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import {
@@ -8,6 +9,7 @@ import {
   currentDate as currentDateState,
 } from '../state'
 import Heading from '../components/Heading'
+import DatePicker from '../components/DatePicker'
 import history from '../utils/history'
 
 export default function Log() {
@@ -46,13 +48,14 @@ export default function Log() {
       </Box>
       <Box sx={{ mb: 3 }}>
         <Label htmlFor='date'>Workout Date</Label>
-        <Input
-          name='date'
-          type='date'
-          value={date}
-          onChange={e => setDate(e.target.value)}
-          sx={{ fontSize: 3 }}
-        />
+        <Box sx={{ borderRadius: 5, p: 2, border: '1px solid black' }}>
+          <DatePicker
+            name='date'
+            value={date}
+            onChange={dt => setDate(dt)}
+            sx={{ fontSize: 3 }}
+          />
+        </Box>
       </Box>
       <Box>
         <Button onClick={redirectToLogPage}>View Log</Button>
