@@ -10,7 +10,11 @@ export default function Header({ date, username, routineName, onDateChange }) {
     <Box>
       <Flex sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <DatePicker value={date} onChange={onDateChange}></DatePicker>
+          <DatePicker
+            value={date}
+            onChange={onDateChange}
+            inputProps={{ sx: { fontWeight: 900 } }}
+          ></DatePicker>
           {/* <Box sx={{ fontSize: 1 }}>
             <Text sx={{ color: 'gray.5' }}>Routine:</Text>
             <Text>{routineName}</Text>

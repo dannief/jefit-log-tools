@@ -5,13 +5,13 @@ import { longDateFormat, parseShortDate, formatDate } from '../utils/dateUtils'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
-const CustomInput = forwardRef(({ value, onClick }, ref) => (
-  <Text onClick={onClick} ref={ref}>
+const CustomInput = forwardRef(({ value, onClick, ...props }, ref) => (
+  <Text onClick={onClick} ref={ref} {...props}>
     {value}
   </Text>
 ))
 
-export default function ({ value, onChange }) {
+export default function ({ value, onChange, inputProps }) {
   const [date, setDate] = useState(parseShortDate(value))
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function ({ value, onChange }) {
       dateFormat={longDateFormat}
       selected={date}
       onChange={handleDateChange}
-      customInput={<CustomInput />}
+      customInput={<CustomInput {...inputProps} />}
     />
   )
 }

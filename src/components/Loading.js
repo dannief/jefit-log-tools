@@ -10,6 +10,8 @@ export default function Loading() {
       sx={{
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
         p: 2,
       }}
     >
