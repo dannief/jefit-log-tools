@@ -1,6 +1,5 @@
 import { getExerciseVolume } from '../utils/logFunctions'
-
-const jefitBaseUrl = 'http://localhost:8010/proxy/'
+import { jefitBaseUrl } from './constants'
 
 async function fetchExerciseHistoryData(url) {
   const pageText = await fetchPageHtml(jefitBaseUrl + url)

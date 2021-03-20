@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import React, { useState, useEffect, useMemo } from 'react'
+// eslint-disable-next-line no-unused-vars
+import React, { useState, useEffect } from 'react'
 import { useImmer } from 'use-immer'
 import { jsx, Flex, Box, Text, Label, Input, Button } from 'theme-ui'
 import { getOverloadOptVolume } from '../utils/logFunctions'

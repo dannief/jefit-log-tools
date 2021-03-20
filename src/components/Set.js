@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Box, Flex, Text } from 'theme-ui'
+// eslint-disable-next-line no-unused-vars
 import React from 'react'
 
 const setItemSx = compact => {

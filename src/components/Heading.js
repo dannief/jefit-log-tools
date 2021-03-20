@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Box, Text } from 'theme-ui'
+// eslint-disable-next-line no-unused-vars
 import React from 'react'
 
 export default function ({ name }) {

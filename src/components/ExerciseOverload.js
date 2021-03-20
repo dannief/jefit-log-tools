@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 /** @jsx jsx */
-import { truncate } from 'lodash'
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { jsx, Flex, Box, Text, Label, Input, Button } from 'theme-ui'
 import {
   getOverloadOptions,

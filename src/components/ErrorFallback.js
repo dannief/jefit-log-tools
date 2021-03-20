@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /** @jsx jsx */
-import { jsx, Flex, Alert, Box, Button, Text } from 'theme-ui'
+import { jsx, Flex, Alert, Button, Text } from 'theme-ui'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

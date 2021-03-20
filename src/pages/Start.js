@@ -24,7 +24,7 @@ export default function Log() {
   }, [date, username])
 
   return (
-    <Box as='form'>
+    <Box as='form' sx={{ p: 2 }}>
       <Heading name='Jefit Workout Logs' />
       <Box sx={{ mb: 3 }}>
         <Label htmlFor='username'>Username</Label>

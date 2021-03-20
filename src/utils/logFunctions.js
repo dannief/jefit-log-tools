@@ -69,18 +69,6 @@ function getOverloadOptions(sets, newVolume) {
   return overloadInfo
 }
 
-function getSetsFromOverloadOption(overloadOption) {
-  const sets = []
-  for (let i = 0; i < overloadOption.sets; i++) {
-    sets.push({
-      weight: overloadOption.weight,
-      reps: overloadOption.reps,
-    })
-  }
-
-  return sets
-}
-
 export {
   getExerciseVolume,
   getExerciseSummary,

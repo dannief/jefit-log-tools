@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { jsx, Box, Heading, Flex, Text, Alert } from 'theme-ui'
+import { jsx, Heading, Flex, Text } from 'theme-ui'
+// eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -9,6 +10,7 @@ export default function Loading() {
       sx={{
         flexDirection: 'column',
         alignItems: 'center',
+        p: 2,
       }}
     >
       <Heading sx={{ mb: 4 }}>Loading the log</Heading>

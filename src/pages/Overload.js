@@ -11,12 +11,16 @@ import {
 } from '../state'
 import { getExerciseSummary } from '../utils/logFunctions'
 
+function getCurrentExercise(log, exerciseName) {
+  return log.exercises.find(ex => ex.exerciseName === exerciseName)
+}
+
 export default function Overload() {
   const log = useRecoilValue(logQuery())
   const currentExerciseName = useRecoilValue(currentExerciseNameState)
 
   const [currentExercise, setCurrentExercise] = useState(
-    getCurrentExercise(currentExerciseName)
+    getCurrentExercise(log, currentExerciseName)
   )
   const [exerciseSummary, setExerciseSummary] = useState(
     getExerciseSummary(currentExercise.sets)
@@ -24,16 +28,12 @@ export default function Overload() {
   const [tab, setTab] = useState('suggest')
 
   useEffect(() => {
-    setCurrentExercise(getCurrentExercise(currentExerciseName))
+    setCurrentExercise(getCurrentExercise(log, currentExerciseName))
   }, [currentExerciseName, log])
 
   useEffect(() => {
     setExerciseSummary(getExerciseSummary(currentExercise.sets))
   }, [currentExercise])
-
-  function getCurrentExercise(exerciseName) {
-    return log.exercises.find(ex => ex.exerciseName === exerciseName)
-  }
 
   return (
     <Flex sx={{ flexDirection: 'column' }}>
