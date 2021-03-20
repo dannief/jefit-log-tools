@@ -6,8 +6,8 @@
 ✔ Toggle between volume % and value editing in ExerciseOverload component @done(21-03-17 22:14)
 ✔ Clicking on exercise brings up last 5 logs @done(21-03-18 19:21)
 ☐ Add notes to log page
-☐ Add site header and display current user and date
-☐ Use CORS service
+✔ Add site header and display current user and date @done(21-03-19 19:20)
+✔ Use CORS service @done(21-03-19 19:21)
 ☐ Implement PWA
 
 --- Release 2 ---
