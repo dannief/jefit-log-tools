@@ -40,7 +40,7 @@ export default function Log() {
           as='a'
           href={
             'https://www.jefit.com/members/user-workout-routine/?xid=' +
-            currentUsername
+            username
           }
           target='routine'
         >
