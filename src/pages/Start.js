@@ -42,6 +42,7 @@ export default function Log() {
             'https://www.jefit.com/members/user-workout-routine/?xid=' +
             currentUsername
           }
+          target='routine'
         >
           View Routine
         </Button>
