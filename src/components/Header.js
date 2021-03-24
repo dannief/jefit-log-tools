@@ -2,7 +2,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { jsx, Box, Text, Flex, Divider } from 'theme-ui'
-import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Menu, MenuItem, MenuButton, MenuDivider } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
@@ -46,11 +45,6 @@ export default function Header({ date, username, onDateChange }) {
             inputProps={{ sx: { fontWeight: 900 } }}
             placement='bottom-end'
           ></DatePicker>
-          {/* <Box>
-            <Link sx={{ fontSize: 1 }} to='/'>
-              Switch User
-            </Link>
-          </Box> */}
         </Box>
       </Flex>
       <Divider />
