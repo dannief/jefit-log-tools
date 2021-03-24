@@ -29,7 +29,7 @@ export default function History() {
             <>
               <Text
                 key={log.date}
-                sx={{ color: 'primary', fontSize: 1, mb: 1 }}
+                sx={{ color: 'gray.5', fontWeight: '700', fontSize: 1, mb: 1 }}
               >
                 {formatShortToLongDateString(log.date)}
               </Text>

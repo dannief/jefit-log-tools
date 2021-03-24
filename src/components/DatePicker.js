@@ -1,7 +1,14 @@
+/** @jsx jsx */
+// eslint-disable-next-line no-unused-vars
 import React, { forwardRef, useState, useEffect } from 'react'
-import { Text } from 'theme-ui'
+import { jsx, Text, Box } from 'theme-ui'
 import DatePicker from 'react-datepicker'
-import { longDateFormat, parseShortDate, formatDate } from '../utils/dateUtils'
+import {
+  longDateFormat,
+  parseShortDate,
+  formatDate,
+  formatShortToLongDateString,
+} from '../utils/dateUtils'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -11,7 +18,12 @@ const CustomInput = forwardRef(({ value, onClick, ...props }, ref) => (
   </Text>
 ))
 
-export default function ({ value, onChange, inputProps }) {
+function ReactDatePicker({
+  value,
+  onChange,
+  inputProps,
+  placement = 'bottom-start',
+}) {
   const [date, setDate] = useState(parseShortDate(value))
 
   useEffect(() => {
@@ -29,7 +41,48 @@ export default function ({ value, onChange, inputProps }) {
       dateFormat={longDateFormat}
       selected={date}
       onChange={handleDateChange}
+      popperPlacement={placement}
       customInput={<CustomInput {...inputProps} />}
     />
   )
 }
+
+function NativeDatePicker({ value, onChange, inputProps = {} }) {
+  const { sx, ...restInputProps } = inputProps
+
+  const [date, setDate] = useState(value)
+
+  useEffect(() => {
+    setDate(value)
+  }, [value])
+
+  const handleDateChange = dateValue => {
+    setDate(dateValue)
+    const dateString = formatDate(dateValue, 'short')
+    onChange(dateString)
+  }
+
+  return (
+    <Box>
+      <input
+        type='date'
+        value={date}
+        onChange={handleDateChange}
+        sx={{ border: 0, position: 'relative', left: '90px', ...sx }}
+        {...restInputProps}
+      />
+      <Text
+        sx={{
+          position: 'relative',
+          display: 'inline-block',
+          top: '-25px',
+          backgroundColor: 'white',
+        }}
+      >
+        {formatShortToLongDateString(date)}
+      </Text>
+    </Box>
+  )
+}
+
+export default ReactDatePicker

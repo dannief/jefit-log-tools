@@ -3,30 +3,54 @@
 import React from 'react'
 import { jsx, Box, Text, Flex, Divider } from 'theme-ui'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Menu, MenuItem, MenuButton, MenuDivider } from '@szhsin/react-menu'
+import '@szhsin/react-menu/dist/index.css'
 import DatePicker from './DatePicker'
+import history from '../utils/history'
 
-export default function Header({ date, username, routineName, onDateChange }) {
+export default function Header({ date, username, onDateChange }) {
   return (
     <Box>
       <Flex sx={{ justifyContent: 'space-between' }}>
-        <Box>
+        <Flex sx={{ alignItems: 'center' }}>
+          <Menu
+            menuButton={
+              <MenuButton>
+                <FontAwesomeIcon icon={'bars'} sx={{ fontSize: 6 }} />
+              </MenuButton>
+            }
+          >
+            <MenuItem onClick={() => history.push('/')}>Change Date</MenuItem>
+            <MenuItem>
+              <a
+                href={
+                  'https://www.jefit.com/members/user-workout-routine/?xid=' +
+                  username
+                }
+                target='routine'
+                sx={{ textDecoration: 'none' }}
+              >
+                View Routine
+              </a>
+            </MenuItem>
+            <MenuDivider></MenuDivider>
+            <MenuItem onClick={() => history.push('/')}>Switch User</MenuItem>
+          </Menu>
+        </Flex>
+        <Box sx={{ textAlign: 'right' }}>
+          <Text>{username}</Text>
           <DatePicker
             value={date}
             onChange={onDateChange}
             inputProps={{ sx: { fontWeight: 900 } }}
+            placement='bottom-end'
           ></DatePicker>
-          {/* <Box sx={{ fontSize: 1 }}>
-            <Text sx={{ color: 'gray.5' }}>Routine:</Text>
-            <Text>{routineName}</Text>
-          </Box> */}
-        </Box>
-        <Box sx={{ textAlign: 'right' }}>
-          <Text>{username}</Text>
-          <Box>
+          {/* <Box>
             <Link sx={{ fontSize: 1 }} to='/'>
               Switch User
             </Link>
-          </Box>
+          </Box> */}
         </Box>
       </Flex>
       <Divider />
