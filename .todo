@@ -8,6 +8,12 @@
 ✔ Add site header and display current user and date @done(21-03-19 19:20)
 ✔ Use CORS service @done(21-03-19 19:21)
 ✔ Update Header @done(21-03-23 20:44)
+✔ Add link to plate calculator @done(21-03-29 15:14)
+✔ Use native date picker @done(21-03-29 15:14)
+☐ Fix history page and overload pages showing previous data
+☐ Remove suggestion component from overload calculator
+☐ Add new volume calculator where volume can be calculated from each indidiual set
+☐ Add 1RM calculator
 ☐ Add notes to log page
 ☐ Implement PWA
 

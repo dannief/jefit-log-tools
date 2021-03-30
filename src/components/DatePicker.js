@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line no-unused-vars
 import React, { forwardRef, useState, useEffect } from 'react'
-import { jsx, Text, Box } from 'theme-ui'
+import { jsx, Text, Box, Button } from 'theme-ui'
 import DatePicker from 'react-datepicker'
 import {
   longDateFormat,
@@ -18,6 +18,7 @@ const CustomInput = forwardRef(({ value, onClick, ...props }, ref) => (
   </Text>
 ))
 
+// eslint-disable-next-line no-unused-vars
 function ReactDatePicker({
   value,
   onChange,
@@ -51,39 +52,41 @@ function ReactDatePicker({
 function NativeDatePicker({ value, onChange, inputProps = {} }) {
   const { sx, ...restInputProps } = inputProps
 
-  const [date, setDate] = useState(value)
-
-  useEffect(() => {
-    setDate(value)
-  }, [value])
-
-  const handleDateChange = dateValue => {
-    setDate(dateValue)
-    const dateString = formatDate(dateValue, 'short')
-    onChange(dateString)
+  const handleDateChange = event => {
+    onChange(event.target.value)
   }
 
   return (
-    <Box>
+    <Box sx={{ position: 'relative' /*lineHeight: 0*/ }}>
       <input
         type='date'
-        value={date}
+        value={value}
         onChange={handleDateChange}
-        sx={{ border: 0, position: 'relative', left: '90px', ...sx }}
+        sx={{
+          border: 0,
+          position: 'absolute',
+          opacity: 0,
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+          cursor: 'pointer',
+          '&::-webkit-calendar-picker-indicator': {
+            position: 'absolute',
+            top: '-150%',
+            left: '-150%',
+            width: '300%',
+            height: '300%',
+            cursor: 'pointer',
+          },
+          ...sx,
+        }}
         {...restInputProps}
       />
-      <Text
-        sx={{
-          position: 'relative',
-          display: 'inline-block',
-          top: '-25px',
-          backgroundColor: 'white',
-        }}
-      >
-        {formatShortToLongDateString(date)}
-      </Text>
+      <Button variant='secondary' sx={{}}>
+        {value ? formatShortToLongDateString(value) : 'Select Date'}
+      </Button>
     </Box>
   )
 }
 
-export default ReactDatePicker
+export default NativeDatePicker

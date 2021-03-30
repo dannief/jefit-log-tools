@@ -11,6 +11,7 @@ export default function ({ name }) {
           fontSize: 5,
           fontWeight: 'bold',
           mb: 4,
+          color: 'primary',
         }}
       >
         {name}

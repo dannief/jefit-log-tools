@@ -3,7 +3,12 @@ import { jsx, Box, Flex } from 'theme-ui'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export default function Measurement({ value, icon, title }) {
+export default function Measurement({
+  value,
+  icon,
+  title,
+  titleColor = 'gray.5',
+}) {
   return (
     <Flex sx={{ flexDirection: 'row' }}>
       {icon ? (
@@ -21,7 +26,7 @@ export default function Measurement({ value, icon, title }) {
       ) : null}
       <Box>
         {title ? (
-          <Box color='gray.5' sx={{ fontSize: 2, fontWeight: 'bold' }}>
+          <Box color={titleColor} sx={{ fontSize: 2, fontWeight: 'bold' }}>
             {title}
           </Box>
         ) : null}

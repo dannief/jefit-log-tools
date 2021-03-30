@@ -1,58 +1,77 @@
+/** @jsx jsx */
 import React from 'react'
-import { Flex, Box, Text } from 'theme-ui'
+import { jsx, Flex, Box, Text, Card } from 'theme-ui'
 import { Link } from 'react-router-dom'
 import Set from './Set'
 import Measurement from './Measurement'
 
 export default function Exercise({ exercise, showExerciseName = true }) {
   return (
-    <Flex sx={{ flexDirection: 'column', mb: 3 }}>
-      {showExerciseName ? (
-        <Box sx={{ mb: 2 }}>
-          <Text
-            sx={{
-              fontSize: 3,
-              fontWeight: '600',
-            }}
-          >
-            <Link to={'/history?exercise=' + exercise.exerciseName}>
-              {exercise.exerciseName}
-            </Link>
-          </Text>
-        </Box>
-      ) : null}
-      <Flex>
-        <Box sx={{ flex: '1 0 auto' }}>
-          {exercise.sets.map((set, index) => {
-            return (
-              <Set
-                key={index}
-                number={index + 1}
-                weight={set.weight}
-                reps={set.reps}
-                interval={set.interval}
-              ></Set>
-            )
-          })}
-        </Box>
-        <Box sx={{ flex: '1 0 auto', ml: 4 }}>
+    <Card sx={{ mb: 3 }}>
+      <Flex sx={{ flexDirection: 'column' }}>
+        {showExerciseName ? (
           <Box sx={{ mb: 2 }}>
-            <Measurement title='Volume' value={exercise.volume + ' lbs'} />
-          </Box>
-          <Box sx={{ mb: 2 }}>
-            <Measurement title='1RM' value={exercise.oneRepMax} />
-          </Box>
-          {exercise.volume > 0 && showExerciseName ? (
-            <Box>
-              <Link to={'/overload?exercise=' + exercise.exerciseName}>
-                Overload
-                <br />
-                Calculator
+            <Text
+              sx={{
+                fontSize: 3,
+                fontWeight: '600',
+              }}
+            >
+              <Link
+                sx={{ color: 'secondaryDark' }}
+                to={'/history?exercise=' + exercise.exerciseName}
+              >
+                {exercise.exerciseName}
               </Link>
+            </Text>
+          </Box>
+        ) : null}
+        <Flex>
+          <Box sx={{ flex: '1 0 auto' }}>
+            {exercise.sets.map((set, index) => {
+              return (
+                <Set
+                  key={index}
+                  number={index + 1}
+                  weight={set.weight}
+                  reps={set.reps}
+                  interval={set.interval}
+                ></Set>
+              )
+            })}
+          </Box>
+          <Box sx={{ flex: '1 0 auto', ml: 4 }}>
+            <Box sx={{ mb: 4 }}>
+              {exercise.volume > 0 && showExerciseName ? (
+                <Link
+                  to={'/overload?exercise=' + exercise.exerciseName}
+                  sx={{ textDecoration: 'none' }}
+                >
+                  <Measurement
+                    icon='dumbbell'
+                    title='Volume'
+                    titleColor='accentLight'
+                    value={exercise.volume + ' lbs'}
+                  />
+                </Link>
+              ) : (
+                <Measurement
+                  icon='dumbbell'
+                  title='Volume'
+                  value={exercise.volume + ' lbs'}
+                />
+              )}
             </Box>
-          ) : null}
-        </Box>
+            <Box>
+              <Measurement
+                icon='chart-line'
+                title='1RM'
+                value={exercise.oneRepMax}
+              />
+            </Box>
+          </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </Card>
   )
 }
