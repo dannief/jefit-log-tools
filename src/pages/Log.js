@@ -1,6 +1,6 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
-import { jsx, Box } from 'theme-ui'
+import { jsx } from 'theme-ui'
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { useRecoilValue } from 'recoil'
