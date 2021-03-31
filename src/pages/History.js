@@ -2,7 +2,7 @@
 /** @jsxFrag React.Fragment */
 import { jsx, Box, Flex, Text } from 'theme-ui'
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { useRecoilValue } from 'recoil'
 import { exerciseHistoryQuery } from '../state'
 import { formatShortToLongDateString } from '../utils/dateUtils'
@@ -29,9 +29,8 @@ export default function History() {
       <Box>
         {logs.map(log => {
           return (
-            <>
+            <Fragment key={log.date}>
               <Text
-                key={log.date}
                 sx={{
                   color: 'secondaryDark',
                   fontWeight: '700',
@@ -41,12 +40,8 @@ export default function History() {
               >
                 {formatShortToLongDateString(log.date)}
               </Text>
-              <Exercise
-                key={log.date}
-                exercise={log}
-                showExerciseName={false}
-              ></Exercise>
-            </>
+              <Exercise exercise={log} showExerciseName={false}></Exercise>
+            </Fragment>
           )
         })}
       </Box>

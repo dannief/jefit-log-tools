@@ -10,7 +10,7 @@
 ✔ Update Header @done(21-03-23 20:44)
 ✔ Add link to plate calculator @done(21-03-29 15:14)
 ✔ Use native date picker @done(21-03-29 15:14)
-☐ Fix history page and overload pages showing previous data
+✔ Fix history page showing previous data @done(21-03-30 18:48)
 ☐ Remove suggestion component from overload calculator
 ☐ Add new volume calculator where volume can be calculated from each indidiual set
 ☐ Add 1RM calculator

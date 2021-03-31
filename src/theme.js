@@ -209,7 +209,7 @@ const theme = {
       bg: 'muted',
     },
     secondary: {
-      color: 'background',
+      color: 'primary',
       bg: 'secondary',
     },
   },

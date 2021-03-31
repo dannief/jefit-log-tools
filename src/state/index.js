@@ -27,17 +27,13 @@ const locationSyncEffect = key => ({ setSelf }) => {
 }
 
 const localForageEffect = key => ({ setSelf, onSet }) => {
-  const setSelfFromLocalStorage = () => {
-    setSelf(
-      localForage
-        .getItem(key)
-        .then(savedValue =>
-          savedValue != null ? savedValue : new DefaultValue()
-        )
-    )
-  }
-
-  setSelfFromLocalStorage()
+  setSelf(
+    localForage
+      .getItem(key)
+      .then(savedValue =>
+        savedValue != null ? savedValue : new DefaultValue()
+      )
+  )
 
   onSet(newValue => {
     if (newValue instanceof DefaultValue) {
@@ -67,7 +63,7 @@ const currentDate = atom({
 const currentExerciseName = atom({
   key: 'CurrentExerciseName',
   effects_UNSTABLE: [
-    localForageEffect('exercise'),
+    // localForageEffect('exercise'),
     locationSyncEffect('exercise'),
   ],
 })
