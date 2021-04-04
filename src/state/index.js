@@ -85,11 +85,13 @@ const logQuery = selectorFamily({
 const exerciseHistoryQuery = selector({
   key: 'ExerciseHistoryQuery',
   get: async ({ get }) => {
+    // current exercise loaded from URL async so may have still have old value
     const exerciseName = get(currentExerciseName)
     const log = get(logQuery())
     const exercise = log.exercises.find(e => e.exerciseName === exerciseName)
     if (!exercise) {
-      // current exercise not yet read from url
+      // if we don't find the exercise in the current log,
+      // the current exercise name value has not yet been updated from the url
       return { exerciseName, logs: [] }
     }
     const url = exercise.exerciseHistoryUrl

@@ -3,7 +3,7 @@
 import { jsx } from 'theme-ui'
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { logQuery } from '../state'
 import Exercise from '../components/Exercise'
 import history from '../utils/history'
