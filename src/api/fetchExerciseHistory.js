@@ -51,12 +51,8 @@ function parseHtml(value) {
       logItemDivs[2].children[0].childNodes[1].textContent.trim()
     )
 
-    console.log(logItem)
-
     data.push(logItem)
   }
-
-  console.log(data)
 
   return data
 }

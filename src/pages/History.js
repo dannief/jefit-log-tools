@@ -11,8 +11,6 @@ import Exercise from '../components/Exercise'
 export default function History() {
   const { exerciseName, logs } = useRecoilValue(exerciseHistoryQuery)
 
-  console.log(logs)
-
   return (
     <Flex sx={{ flexDirection: 'column' }}>
       <Box sx={{ mb: 2 }}>

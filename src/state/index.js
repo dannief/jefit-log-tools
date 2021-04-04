@@ -87,8 +87,12 @@ const exerciseHistoryQuery = selector({
   get: async ({ get }) => {
     const exerciseName = get(currentExerciseName)
     const log = get(logQuery())
-    const url = log.exercises.find(e => e.exerciseName === exerciseName)
-      .exerciseHistoryUrl
+    const exercise = log.exercises.find(e => e.exerciseName === exerciseName)
+    if (!exercise) {
+      // current exercise not yet read from url
+      return { exerciseName, logs: [] }
+    }
+    const url = exercise.exerciseHistoryUrl
     const logs = await fetchExerciseHistoryData(url)
     return { exerciseName, logs }
   },

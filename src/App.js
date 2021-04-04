@@ -14,6 +14,8 @@ import History from './pages/History'
 import Layout from './components/Layout'
 import ErrorFallback from './components/ErrorFallback'
 import Loading from './components/Loading'
+import DebugObserver from './state/DebugObserver'
+import DebugButton from './state/DebugButton'
 
 import history from './utils/history'
 
@@ -22,6 +24,8 @@ library.add(fas, far)
 function App() {
   return (
     <RecoilRoot>
+      <DebugObserver />
+      {/* <DebugButton /> */}
       <Router history={history}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<Loading />}>

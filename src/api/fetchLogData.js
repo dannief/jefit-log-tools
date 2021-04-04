@@ -7,7 +7,7 @@ const jefitLogsBaseUrl = jefitBaseUrl + 'members/user-logs/log/'
 async function fetchLogData(params) {
   const pageText = await fetchPageHtml(params)
   const logData = parseHtml(pageText, params)
-  console.log(logData)
+
   return logData
 }
 
@@ -80,8 +80,6 @@ function parseHtml(value, { username }) {
     logEntry.oneRepMax = !Number.isNaN(oneRepmax) ? oneRepmax : null
     logEntry.sets = parseSets(entryNodes[3])
     logEntry.volume = getExerciseVolume(logEntry.sets)
-
-    console.log(logEntry)
   }
 
   // Notes

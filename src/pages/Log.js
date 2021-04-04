@@ -3,10 +3,10 @@
 import { jsx } from 'theme-ui'
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { logQuery } from '../state'
-// import Json from 'react-json-view'
 import Exercise from '../components/Exercise'
+import history from '../utils/history'
 
 export default function Log() {
   const log = useRecoilValue(logQuery())
@@ -14,9 +14,16 @@ export default function Log() {
   return (
     <>
       {log.exercises.map(ex => {
-        return <Exercise key={ex.exerciseName} exercise={ex}></Exercise>
+        return (
+          <Exercise
+            key={ex.exerciseName}
+            exercise={ex}
+            onExerciseSelected={exerciseName => {
+              history.push('/History?exercise=' + exerciseName)
+            }}
+          ></Exercise>
+        )
       })}
-      {/* <Box>{log ? <Json src={log} /> : 'No workout'}</Box> */}
     </>
   )
 }

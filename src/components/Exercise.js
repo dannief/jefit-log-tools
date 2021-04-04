@@ -6,7 +6,11 @@ import { Link } from 'react-router-dom'
 import Set from './Set'
 import Measurement from './Measurement'
 
-export default function Exercise({ exercise, showExerciseName = true }) {
+export default function Exercise({
+  exercise,
+  showExerciseName = true,
+  onExerciseSelected,
+}) {
   return (
     <Card sx={{ mb: 3 }}>
       <Flex sx={{ flexDirection: 'column' }}>
@@ -16,14 +20,15 @@ export default function Exercise({ exercise, showExerciseName = true }) {
               sx={{
                 fontSize: 3,
                 fontWeight: '600',
+                color: 'secondaryDark',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                console.log('Selected: ', exercise.exerciseName)
+                onExerciseSelected(exercise.exerciseName)
               }}
             >
-              <Link
-                sx={{ color: 'secondaryDark' }}
-                to={'/history?exercise=' + exercise.exerciseName}
-              >
-                {exercise.exerciseName}
-              </Link>
+              {exercise.exerciseName}
             </Text>
           </Box>
         ) : null}
