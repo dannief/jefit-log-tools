@@ -1,7 +1,5 @@
-/** @jsx jsx */
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
-import { jsx, Flex, Box, Text, Card } from 'theme-ui'
+/** @jsxImportSource theme-ui */
+import { Flex, Box, Text, Card, Themed } from 'theme-ui'
 import { Link } from 'react-router-dom'
 import Set from './Set'
 import Measurement from './Measurement'
@@ -16,12 +14,11 @@ export default function Exercise({
       <Flex sx={{ flexDirection: 'column' }}>
         {showExerciseName ? (
           <Box sx={{ mb: 2 }}>
-            <Text
+            <Themed.a
+              as={Text}
               sx={{
                 fontSize: 3,
                 fontWeight: '600',
-                color: 'secondaryDark',
-                cursor: 'pointer',
               }}
               onClick={() => {
                 console.log('Selected: ', exercise.exerciseName)
@@ -29,7 +26,7 @@ export default function Exercise({
               }}
             >
               {exercise.exerciseName}
-            </Text>
+            </Themed.a>
           </Box>
         ) : null}
         <Flex>
@@ -49,17 +46,16 @@ export default function Exercise({
           <Box sx={{ flex: '1 0 auto', ml: 4 }}>
             <Box sx={{ mb: 4 }}>
               {exercise.volume > 0 && showExerciseName ? (
-                <Link
-                  to={'/overload?exercise=' + exercise.exerciseName}
-                  sx={{ textDecoration: 'none' }}
+                <Themed.a
+                  as={Link}
+                  to={'/volume?exercise=' + exercise.exerciseName}
                 >
                   <Measurement
                     icon='dumbbell'
                     title='Volume'
-                    titleColor='accentLight'
                     value={exercise.volume + ' lbs'}
                   />
-                </Link>
+                </Themed.a>
               ) : (
                 <Measurement
                   icon='dumbbell'

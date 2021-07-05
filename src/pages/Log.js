@@ -1,9 +1,6 @@
-/** @jsx jsx */
-/** @jsxFrag React.Fragment */
-import { jsx } from 'theme-ui'
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
+/** @jsxImportSource theme-ui */
 import { useRecoilValue } from 'recoil'
+import { Flex, Heading } from 'theme-ui'
 import { logQuery } from '../state'
 import Exercise from '../components/Exercise'
 import history from '../utils/history'
@@ -13,17 +10,29 @@ export default function Log() {
 
   return (
     <>
-      {log.exercises.map(ex => {
-        return (
-          <Exercise
-            key={ex.exerciseName}
-            exercise={ex}
-            onExerciseSelected={exerciseName => {
-              history.push('/History?exercise=' + exerciseName)
-            }}
-          ></Exercise>
-        )
-      })}
+      {log.exercises.length ? (
+        log.exercises.map(ex => {
+          return (
+            <Exercise
+              key={ex.exerciseName}
+              exercise={ex}
+              onExerciseSelected={exerciseName => {
+                history.push('/History?exercise=' + exerciseName)
+              }}
+            ></Exercise>
+          )
+        })
+      ) : (
+        <Flex
+          sx={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Heading sx={{ /*color: 'crimson',*/ mt: 5 }}>No Log Found</Heading>
+        </Flex>
+      )}
     </>
   )
 }

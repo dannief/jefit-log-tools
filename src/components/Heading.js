@@ -1,9 +1,8 @@
-/** @jsx jsx */
-import { jsx, Box, Text } from 'theme-ui'
-// eslint-disable-next-line no-unused-vars
+/** @jsxImportSource theme-ui */
+import { Box, Text } from 'theme-ui'
 import React from 'react'
 
-export default function ({ name }) {
+const Heading = function ({ name }) {
   return (
     <Box>
       <Text
@@ -19,3 +18,5 @@ export default function ({ name }) {
     </Box>
   )
 }
+
+export default Heading

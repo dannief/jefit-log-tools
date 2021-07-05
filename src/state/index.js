@@ -62,10 +62,7 @@ const currentDate = atom({
 
 const currentExerciseName = atom({
   key: 'CurrentExerciseName',
-  effects_UNSTABLE: [
-    // localForageEffect('exercise'),
-    locationSyncEffect('exercise'),
-  ],
+  effects_UNSTABLE: [locationSyncEffect('exercise')],
 })
 
 // ----- Selectors -----

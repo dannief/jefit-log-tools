@@ -1,7 +1,5 @@
-/** @jsx jsx */
-import { jsx, Heading, Flex, Text } from 'theme-ui'
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
+/** @jsxImportSource theme-ui */
+import { Heading, Flex, Text } from 'theme-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Loading() {

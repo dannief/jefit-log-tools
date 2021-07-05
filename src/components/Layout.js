@@ -1,8 +1,5 @@
-/** @jsx jsx */
-/** @jsxFrag React.Fragment */
-// eslint-disable-next-line no-unused-vars
-import React, { useCallback, useState } from 'react'
-import { jsx, Container } from 'theme-ui'
+/** @jsxImportSource theme-ui */
+import { Container } from 'theme-ui'
 import { useRecoilValue } from 'recoil'
 import Header from './Header'
 import { currentDate, currentUsername } from '../state'

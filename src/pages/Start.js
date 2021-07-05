@@ -1,8 +1,6 @@
-/** @jsx jsx */
-/** @jsxFrag React.Fragment */
-import { jsx, Box, Input, Button, Label } from 'theme-ui'
-// eslint-disable-next-line no-unused-vars
-import React, { useCallback, useState, useEffect } from 'react'
+/** @jsxImportSource theme-ui */
+import { Box, Input, Button, Label } from 'theme-ui'
+import { useCallback, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import {
   currentUsername as currentUsernameState,

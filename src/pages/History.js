@@ -1,9 +1,8 @@
-/** @jsx jsx */
-/** @jsxFrag React.Fragment */
-import { jsx, Box, Flex, Text } from 'theme-ui'
-// eslint-disable-next-line no-unused-vars
-import React, { Fragment } from 'react'
+/** @jsxImportSource theme-ui */
+import { Box, Flex, Text, Themed } from 'theme-ui'
+import { Fragment } from 'react'
 import { useRecoilValue } from 'recoil'
+import { Link } from 'react-router-dom'
 import { exerciseHistoryQuery } from '../state'
 import { formatShortToLongDateString } from '../utils/dateUtils'
 import Exercise from '../components/Exercise'
@@ -16,9 +15,10 @@ export default function History() {
       <Box sx={{ mb: 2 }}>
         <Text
           sx={{
-            fontSize: 4,
+            fontSize: 3,
             fontWeight: '600',
             mb: 3,
+            color: 'secondary',
           }}
         >
           {exerciseName}
@@ -28,16 +28,17 @@ export default function History() {
         {logs.map(log => {
           return (
             <Fragment key={log.date}>
-              <Text
-                sx={{
-                  color: 'secondaryDark',
-                  fontWeight: '700',
-                  fontSize: 3,
-                  mb: 1,
-                }}
-              >
-                {formatShortToLongDateString(log.date)}
-              </Text>
+              <Themed.a as={Link} to={`/log?date=${log.date}`}>
+                <Text
+                  sx={{
+                    fontWeight: '600',
+                    fontSize: 2,
+                    mb: 1,
+                  }}
+                >
+                  {formatShortToLongDateString(log.date)}
+                </Text>
+              </Themed.a>
               <Exercise exercise={log} showExerciseName={false}></Exercise>
             </Fragment>
           )

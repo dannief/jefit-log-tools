@@ -1,14 +1,13 @@
-/* eslint-disable no-unused-vars */
-/** @jsx jsx */
-import React, { useState, useEffect } from 'react'
-import { jsx, Flex, Box, Text, Label, Input, Button } from 'theme-ui'
+/** @jsxImportSource theme-ui */
+import { useState, useEffect } from 'react'
+import { Flex, Box, Text, Label, Input, Button } from 'theme-ui'
 import {
   getOverloadOptions,
   overloadType,
   getOverloadOptVolume,
 } from '../utils/logFunctions'
 
-export default function ExerciseOverload({ exercise }) {
+export default function ExerciseConfigGenerator({ exercise }) {
   const [volume, setVolume] = useState(null)
   const [volumePercent, setVolumePercent] = useState(100)
   const [overloadOptions, setOverloadOptions] = useState(null)

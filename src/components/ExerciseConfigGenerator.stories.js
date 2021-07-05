@@ -1,13 +1,15 @@
 import React from 'react'
 
-import ExerciseOverload from './ExerciseOverload'
+import ExerciseConfigGenerator from './ExerciseConfigGenerator'
 
 export default {
-  title: 'ExerciseOverload',
-  component: ExerciseOverload,
+  title: 'ExerciseConfigGenerator',
+  component: ExerciseConfigGenerator,
 }
 
-const Template = args => <ExerciseOverload {...args}></ExerciseOverload>
+const Template = args => (
+  <ExerciseConfigGenerator {...args}></ExerciseConfigGenerator>
+)
 
 export const Default = Template.bind({})
 Default.args = {

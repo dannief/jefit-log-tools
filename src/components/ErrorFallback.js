@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-/** @jsx jsx */
-import { jsx, Flex, Alert, Button, Text } from 'theme-ui'
-import React from 'react'
+/** @jsxImportSource theme-ui */
+import { Flex, Alert, Button, Text } from 'theme-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function ErrorFallback({ error, resetErrorBoundary }) {

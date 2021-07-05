@@ -1,8 +1,7 @@
-/** @jsx jsx */
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react'
+/** @jsxImportSource theme-ui */
+import { useState, useEffect } from 'react'
 import { useImmer } from 'use-immer'
-import { jsx, Flex, Box, Text, Label, Input, Button } from 'theme-ui'
+import { Flex, Box, Text, Label, Input, Button } from 'theme-ui'
 import { getOverloadOptVolume } from '../utils/logFunctions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

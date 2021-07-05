@@ -1,7 +1,7 @@
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
+import { forwardRef, useState, useEffect } from 'react'
 // eslint-disable-next-line no-unused-vars
-import React, { forwardRef, useState, useEffect } from 'react'
-import { jsx, Text, Box, Button } from 'theme-ui'
+import { Text, Box, Button } from 'theme-ui'
 import DatePicker from 'react-datepicker'
 import {
   longDateFormat,

@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx, Box, Text } from 'theme-ui'
-import React from 'react'
+/** @jsxImportSource theme-ui */
+import { Box, Text } from 'theme-ui'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
 

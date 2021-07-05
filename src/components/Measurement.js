@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx, Box, Flex } from 'theme-ui'
+/** @jsxImportSource theme-ui */
+import { Box, Flex } from 'theme-ui'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -7,7 +7,8 @@ export default function Measurement({
   value,
   icon,
   title,
-  titleColor = 'gray.5',
+  titleColor,
+  valueColor,
 }) {
   return (
     <Flex sx={{ flexDirection: 'row' }}>
@@ -15,7 +16,7 @@ export default function Measurement({
         <Flex
           sx={{
             fontWeight: 'bold',
-            fontSize: 7,
+            fontSize: 5,
             mr: 2,
             mt: 1,
             alignItems: 'flex-start',
@@ -26,11 +27,13 @@ export default function Measurement({
       ) : null}
       <Box>
         {title ? (
-          <Box color={titleColor} sx={{ fontSize: 2, fontWeight: 'bold' }}>
+          <Box sx={{ fontSize: 2, fontWeight: 'bold', color: titleColor }}>
             {title}
           </Box>
         ) : null}
-        <Box sx={{ fontSize: 1, fontWeight: 'bold' }}>{value}</Box>
+        <Box sx={{ fontSize: 1, fontWeight: 'bold', color: valueColor }}>
+          {value}
+        </Box>
       </Box>
     </Flex>
   )

@@ -1,7 +1,5 @@
-/** @jsx jsx */
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
-import { jsx, Box, Text, Flex, Divider, useThemeUI } from 'theme-ui'
+/** @jsxImportSource theme-ui */
+import { Box, Text, Flex, Divider, useThemeUI } from 'theme-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Menu, MenuItem, MenuButton, MenuDivider } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
@@ -29,7 +27,7 @@ export default function Header({ date, username, onDateChange }) {
               <MenuButton>
                 <FontAwesomeIcon
                   icon={'bars'}
-                  sx={{ fontSize: 6, color: 'text' }}
+                  sx={{ fontSize: 5, color: 'text' }}
                 />
               </MenuButton>
             }

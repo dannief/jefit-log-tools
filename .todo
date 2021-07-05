@@ -11,16 +11,22 @@
 ✔ Add link to plate calculator @done(21-03-29 15:14)
 ✔ Use native date picker @done(21-03-29 15:14)
 ✔ Fix history page showing previous data @done(21-03-30 18:48)
+✔ Display message when no log found for date @done(21-07-04 19:37)
 ☐ Remove suggestion component from overload calculator
-☐ Add new volume calculator where volume can be calculated from each indidiual set
-☐ Add 1RM calculator
 ☐ Add notes to log page
-☐ Implement PWA
+✔ On history page, click on date to show logs for that day @done(21-07-04 18:05)
+✔ Dashed-underline hyperlinks @done(21-07-04 19:37)
+☐ Add new volume calculator where volume can be calculated from each indidiual set
+☐ Support timed exercises
 
 --- Release 2 ---
+☐ Implement PWA
+☐ Add 1RM calculator and how percentages of the 1 rep map
 ☐ Add option to add routine day info to log
   ☐ Get routine info and try to determine current routine in log based on day of the week
   ☐ Add option to allow user to choose routine day to overlay
   ☐ show exercises not done with last exercise log and rest time. 
   ☐ Show message saying e.g. '3 exercises from routine not done'
 ☐ Allow side by side comparison of logs
+☐ implement numeric step input
+☐ Create tour of app
