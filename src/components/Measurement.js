@@ -6,13 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export default function Measurement({
   value,
   icon,
+  isIconInline,
   title,
   titleColor,
   valueColor,
+  ...props
 }) {
   return (
-    <Flex sx={{ flexDirection: 'row' }}>
-      {icon ? (
+    <Flex sx={{ flexDirection: 'row' }} {...props}>
+      {icon && !isIconInline ? (
         <Flex
           sx={{
             fontWeight: 'bold',
@@ -32,7 +34,7 @@ export default function Measurement({
           </Box>
         ) : null}
         <Box sx={{ fontSize: 1, fontWeight: 'bold', color: valueColor }}>
-          {value}
+          {icon && isIconInline && <FontAwesomeIcon icon={icon} />} {value}
         </Box>
       </Box>
     </Flex>

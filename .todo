@@ -12,15 +12,17 @@
 ✔ Use native date picker @done(21-03-29 15:14)
 ✔ Fix history page showing previous data @done(21-03-30 18:48)
 ✔ Display message when no log found for date @done(21-07-04 19:37)
-☐ Remove suggestion component from overload calculator
-☐ Add notes to log page
 ✔ On history page, click on date to show logs for that day @done(21-07-04 18:05)
 ✔ Dashed-underline hyperlinks @done(21-07-04 19:37)
-☐ Add new volume calculator where volume can be calculated from each indidiual set
+✔ Remove suggestion component from overload calculator @done(21-07-25 11:22)
+✔ Add new volume calculator where volume can be calculated from each indidiual set @done(21-07-25 13:50)
+  ✔ Add functions to add and remove new sets @done(21-07-25 13:49)
+  ✔ Show old and new volume and new volume percentage values @done(21-07-25 13:50)
+☐ Add 1RM percentage calculator
+☐ Add notes to log page
 ☐ Support timed exercises
 
 --- Release 2 ---
-☐ Implement PWA
 ☐ Add 1RM calculator and how percentages of the 1 rep map
 ☐ Add option to add routine day info to log
   ☐ Get routine info and try to determine current routine in log based on day of the week

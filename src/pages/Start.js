@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { Box, Input, Button, Label } from 'theme-ui'
+import { Box, Flex, Input, Button, Label } from 'theme-ui'
 import { useCallback, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import {
@@ -22,7 +22,7 @@ export default function Log() {
   }, [date, username])
 
   return (
-    <Box as='form' sx={{ p: 2 }}>
+    <Flex as='form' sx={{ p: 2, height: '100%', flexDirection: 'column' }}>
       <Heading name='Jefit Workout Logs' />
       <Box sx={{ mb: 3 }}>
         <Label htmlFor='username'>Username</Label>
@@ -59,6 +59,18 @@ export default function Log() {
       <Box>
         <Button onClick={redirectToLogPage}>View Log</Button>
       </Box>
-    </Box>
+      <Flex sx={{ fontSize: '10px', alignItems: 'flex-end', flexGrow: 1 }}>
+        <div>
+          Icons made by{' '}
+          <a href='https://www.freepik.com' title='Freepik'>
+            Freepik
+          </a>{' '}
+          from{' '}
+          <a href='https://www.flaticon.com/' title='Flaticon'>
+            www.flaticon.com
+          </a>
+        </div>
+      </Flex>
+    </Flex>
   )
 }

@@ -39,7 +39,7 @@ export default function ExerciseCompact({ exercise }) {
               bg: 'muted',
               p: 3,
               display: 'inline-block',
-              color: 'highlight',
+              color: 'secondary',
             }}
           >
             <Measurement title='Volume' value={exercise.volume + ' lbs'} />

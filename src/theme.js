@@ -15,8 +15,6 @@ const theme = {
       '&:visited': {
         color: 'secondary',
       },
-      // display: 'inline-block',
-      // paddingBottom: '2px',
     },
   },
 }
