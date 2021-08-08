@@ -3,6 +3,7 @@ import { tosh as preset } from '@theme-ui/presets'
 
 const theme = {
   ...preset,
+  initialColorModeName: 'light',
   styles: {
     ...preset.styles,
     a: {
