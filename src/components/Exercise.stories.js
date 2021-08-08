@@ -29,5 +29,6 @@ ExerciseDefault.args = {
       },
     ],
     volume: 1000,
+    notes: ['This is a note', 'This too'],
   },
 }

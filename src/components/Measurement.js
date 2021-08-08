@@ -28,14 +28,16 @@ export default function Measurement({
         </Flex>
       ) : null}
       <Box>
-        {title ? (
+        {title && (
           <Box sx={{ fontSize: 2, fontWeight: 'bold', color: titleColor }}>
             {title}
           </Box>
-        ) : null}
-        <Box sx={{ fontSize: 1, fontWeight: 'bold', color: valueColor }}>
-          {icon && isIconInline && <FontAwesomeIcon icon={icon} />} {value}
-        </Box>
+        )}
+        {value && (
+          <Box sx={{ fontSize: 1, fontWeight: 'bold', color: valueColor }}>
+            {icon && isIconInline && <FontAwesomeIcon icon={icon} />} {value}
+          </Box>
+        )}
       </Box>
     </Flex>
   )
