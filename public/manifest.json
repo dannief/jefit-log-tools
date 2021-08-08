@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "My Workouts",
+  "name": "Jefit Workout Logs",
   "icons": [
     {
       "src": "favicon.ico",
