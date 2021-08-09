@@ -95,11 +95,13 @@ export default function Exercise({
           </Flex>
         </Flex>
       </Card>
-      <Notes
-        notes={exercise.notes}
-        open={exercise.notes && exercise.notes.length && notesShown}
-        onClose={handleHideNotes}
-      />
+      {exercise.notes && exercise.notes.length > 0 && (
+        <Notes
+          notes={exercise.notes}
+          open={exercise.notes && exercise.notes.length && notesShown}
+          onClose={handleHideNotes}
+        />
+      )}
     </>
   )
 }
