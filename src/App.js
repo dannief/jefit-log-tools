@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     setColorMode('light')
-  }, [])
+  }, [setColorMode])
 
   return (
     <RecoilRoot>
