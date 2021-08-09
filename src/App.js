@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Router, Switch, Route } from 'react-router-dom'
@@ -19,9 +19,17 @@ import DebugObserver from './state/DebugObserver'
 
 import history from './utils/history'
 
+import { useColorMode } from 'theme-ui'
+
 library.add(fas, far)
 
 function App() {
+  const [, setColorMode] = useColorMode()
+
+  useEffect(() => {
+    setColorMode('light')
+  }, [])
+
   return (
     <RecoilRoot>
       <DebugObserver />
